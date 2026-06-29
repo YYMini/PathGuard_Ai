@@ -1,0 +1,2 @@
+trajectory_id,gps_point_count,start_time,end_time,duration_sec,total_distance_m,average_speed_mps,maximum_speed_mps,minimum_acceleration_mps2,maximum_acceleration_mps2,average_direction_change_deg,maximum_direction_change_deg,maximum_stop_duration_sec,maximum_time_gap_sec,speed_over_50_count,time_gap_over_300_count,stop_over_60_count
+20081024020959,244,2008-10-24 02:09:59,2008-10-24 02:47:06,2227.0,1303.6600579160004,0.9616371643704361,28.924300693488696,-5.59403930084444,5.218397107442425,25.037877139136313,178.92853462896807,130.0,725.0,0,2,32
