@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# GeoLife 원본 및 생성 결과
+data/raw/geolife/Data/
+data/processed/*.csv
+outputs/maps/*.html
+
+# 폴더 구조 유지
+!data/processed/.gitkeep
+!outputs/maps/.gitkeep
