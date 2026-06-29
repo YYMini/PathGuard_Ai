@@ -18,7 +18,7 @@ PathGuard_Ai/
 ├─ docs/
 │  └─ images/
 │     └─ stage2/
-│        └─ 20081026134407/
+│        └─ 20081024020959/
 ├─ outputs/
 │  ├─ figures/
 │  └─ maps/
@@ -233,7 +233,7 @@ python -m src.visualize_features
 특정 trajectory를 선택하려면 다음과 같이 실행합니다.
 
 ```powershell
-python -m src.visualize_features --trajectory-id 20081026134407
+python -m src.visualize_features --trajectory-id 20081024020959
 ```
 
 입력 CSV를 직접 지정할 수도 있습니다.
@@ -241,7 +241,7 @@ python -m src.visualize_features --trajectory-id 20081026134407
 ```powershell
 python -m src.visualize_features `
   --input data/processed/gps_features.csv `
-  --trajectory-id 20081026134407
+  --trajectory-id 20081024020959
 ```
 
 일반 실행 결과는 다음 폴더에 저장됩니다.
@@ -296,14 +296,14 @@ GitHub README에서 확인할 PNG와 요약 CSV를 생성하려면 `--export-por
 
 ```powershell
 python -m src.visualize_features `
-  --trajectory-id 20081026134407 `
+  --trajectory-id 20081024020959 `
   --export-portfolio
 ```
 
 포트폴리오 결과 저장 위치:
 
 ```text
-docs/images/stage2/20081026134407/
+docs/images/stage2/20081024020959/
 ```
 
 `outputs/`에 생성되는 일반 실행 결과는 Git 추적 대상에서 제외되며, `docs/images/stage2/`의 대표 이미지와 요약 CSV는 Git에서 추적됩니다.
@@ -316,31 +316,31 @@ docs/images/stage2/20081026134407/
 
 전체 속도와 50m/s 데이터 품질 참고선을 비교합니다.
 
-![Speed timeline](docs/images/stage2/20081026134407/speed_timeline.png)
+![Speed timeline](docs/images/stage2/20081024020959/speed_timeline.png)
 
 ### 가속도 변화
 
 양수·음수 가속도와 최솟값·최댓값 지점을 확인합니다.
 
-![Acceleration timeline](docs/images/stage2/20081026134407/acceleration_timeline.png)
+![Acceleration timeline](docs/images/stage2/20081024020959/acceleration_timeline.png)
 
 ### 방향 변화량
 
 0~180도 범위의 방향 변화와 변화량이 큰 상위 지점을 확인합니다.
 
-![Direction change](docs/images/stage2/20081026134407/direction_change_timeline.png)
+![Direction change](docs/images/stage2/20081024020959/direction_change_timeline.png)
 
 ### 정지 시간
 
 정지 조건이 연속될 때 누적되는 정지 시간을 확인합니다.
 
-![Stop duration](docs/images/stage2/20081026134407/stop_duration_timeline.png)
+![Stop duration](docs/images/stage2/20081024020959/stop_duration_timeline.png)
 
 ### GPS 기록 간격
 
 GPS 포인트 사이의 측정 간격과 가장 긴 기록 공백을 확인합니다.
 
-![Time gap](docs/images/stage2/20081026134407/time_gap_timeline.png)
+![Time gap](docs/images/stage2/20081024020959/time_gap_timeline.png)
 
 ---
 
@@ -349,41 +349,41 @@ GPS 포인트 사이의 측정 간격과 가장 긴 기록 공백을 확인합�
 분석 대상:
 
 ```text
-trajectory_id: 20081026134407
+trajectory_id: 20081024020959
 ```
 
 | 항목           |          결과 |
 | ------------ | ----------: |
-| GPS 포인트      |        745개 |
-| 기록 시간        |      4,800초 |
-| 총 이동 거리      | 18,648.325m |
-| 평균 포인트 속도    |    2.931m/s |
-| 전체 경로 평균 속도  |  약 3.885m/s |
-| 최대 속도        |   36.647m/s |
-| 최소 가속도       |  -5.784m/s² |
-| 최대 가속도       |   6.056m/s² |
-| 최대 방향 변화량    |    173.886° |
-| 최대 누적 정지 시간  |         35초 |
-| 최대 GPS 기록 간격 |        275초 |
+| GPS 포인트      |        244개 |
+| 기록 시간        |      2,227초 |
+| 총 이동 거리      |  1,303.660m |
+| 평균 포인트 속도    |    0.962m/s |
+| 전체 경로 평균 속도  |  약 0.585m/s |
+| 최대 속도        |   28.924m/s |
+| 최소 가속도       |  -5.594m/s² |
+| 최대 가속도       |   5.218m/s² |
+| 최대 방향 변화량    |    178.929° |
+| 최대 누적 정지 시간  |        130초 |
+| 최대 GPS 기록 간격 |        725초 |
 
 `평균 포인트 속도`는 각 GPS 포인트에서 계산된 속도의 산술평균이며, `전체 경로 평균 속도`는 총 이동 거리를 전체 기록 시간으로 나눈 값입니다.
 
-그래프를 통해 경로 후반부에서 상대적으로 높은 속도 구간이 나타나며, 일부 시점에서 큰 방향 변화와 급가속·급감속이 발생한 것을 확인했습니다.
+그래프에서 최대 속도는 50m/s 참고 기준보다 낮지만, 일부 시점에서 큰 방향 변화와 급가속·급감속이 나타납니다. 또한 300초를 초과한 GPS 기록 간격 2개와 누적 정지 시간이 60초 이상인 포인트 32개를 확인할 수 있습니다.
 
-이 경로에서는 다음 참고 조건을 만족하는 지점이 없었습니다.
+이 경로에서 확인된 참고 조건별 포인트 수는 다음과 같습니다.
 
 ```text
-속도 > 50m/s
-GPS 기록 간격 > 300초
-누적 정지 시간 ≥ 60초
+속도 > 50m/s: 0개
+GPS 기록 간격 > 300초: 2개
+누적 정지 시간 ≥ 60초: 32개
 ```
 
-따라서 실제 데이터에 존재하지 않는 품질 확인 지점은 그래프와 지도에 임의로 표시하지 않았습니다.
+이 기준은 탐색적 데이터 품질 확인을 위한 표시에만 사용하며 위험 또는 이상행동 판정으로 해석하지 않습니다.
 
 전체 요약 수치는 다음 파일에서 확인할 수 있습니다.
 
 ```text
-docs/images/stage2/20081026134407/feature_summary.csv
+docs/images/stage2/20081024020959/feature_summary.csv
 ```
 
 ---
