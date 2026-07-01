@@ -1,5 +1,64 @@
 # PathGuard_Ai
 
+# Stage 3. 학습 데이터 구성
+
+Stage 3는 `gps_features.csv`를 품질 검사하고, 정상 trajectory에서 합성 이상행동을 만든 뒤
+trajectory 단위로 train/validation/test 데이터셋을 구성합니다. 이 단계에서는 PyTorch,
+Autoencoder, 모델 학습 및 이상 점수 계산을 구현하지 않습니다.
+
+## 품질 검사와 정상 trajectory
+
+측정 품질 플래그는 `time_diff_sec <= 0`(trajectory 첫 행 제외), 300초 초과 기록 공백,
+50m/s 초과 속도, 그리고 60초 이내 1,000m 초과 GPS 점프입니다. 플래그가 하나라도 있는
+행은 낮은 품질로 기록하지만 자동 삭제하지 않습니다. 첫 행은 초기 특징값이므로 학습에서는
+제외합니다. 이 품질 플래그는 GPS 측정 신뢰도 표시이며 행동 이상 라벨이 아닙니다.
+
+합성 데이터 후보는 100개 이상의 포인트, 낮은 품질 비율 5% 이하, 정상 timestamp 순서,
+필수 특징의 NaN·무한대 없음 조건을 모두 만족해야 합니다. 현재 데이터에서는 5개 중 4개가
+적격이며 `20081027115449`는 50개 포인트뿐이어서 제외되었습니다.
+
+## 합성 이상행동과 특징 재계산
+
+합성 실험 라벨은 실제 위험 정답이 아닙니다. 정상 경로 복사본의 일부 연속 구간에 다음 네
+종류를 생성합니다.
+
+* `route_deviation`: 부드럽게 증가·감소하는 100~300m 측면 이탈
+* `abnormal_speed`: 10~45m/s 범위의 빠른 이동
+* `long_stop`: 위치를 3m 이내로 고정한 장시간 정지
+* `direction_change`: 좌우 15~40m 지그재그 이동
+
+GPS 점프는 측정 품질 문제이므로 행동 이상으로 만들지 않습니다. 변형 뒤 Stage 2 로직으로
+거리·속도·가속도·방위각·방향 변화·정지 시간을 다시 계산하여 좌표와 시간에 일관된 특징을
+보장합니다.
+
+## 분할과 누수 검사
+
+동일 원본에서 나온 정상·합성 데이터가 서로 다른 split에 섞이지 않도록
+`source_trajectory_id` 단위로 분할합니다. train에는 학습 가능한 정상 원본만 들어가며,
+validation과 test에는 각 경로의 정상 및 합성 이상 데이터가 함께 들어갑니다. 실행 전에
+source/sample 중복, train 합성·이상 라벨, validation/test 구성, NaN·무한대 및 CSV 재읽기를
+검사합니다.
+
+```powershell
+python -m src.prepare_dataset
+python -m src.prepare_dataset --input data/processed/gps_features.csv --output-dir data/processed --samples-per-type 1 --seed 42
+python -m src.visualize_dataset --export-portfolio
+```
+
+생성 데이터는 `quality_checked.csv`, `trajectory_quality_summary.csv`,
+`synthetic_anomalies.csv`, `synthetic_anomaly_manifest.csv`, `train.csv`, `validation.csv`,
+`test.csv`, `split_manifest.csv`이며 모두 `data/processed/` 아래에 저장됩니다. 그래프는
+`outputs/figures/stage3/`, 비교 지도는 `outputs/maps/stage3_synthetic_examples.html`에
+생성됩니다. Git에서 추적할 포트폴리오 결과는 `docs/images/stage3/`에 있습니다.
+
+![Stage 3 quality flags](docs/images/stage3/quality_flag_counts.png)
+
+![Stage 3 split distribution](docs/images/stage3/split_distribution.png)
+
+![Stage 3 anomaly types](docs/images/stage3/anomaly_type_counts.png)
+
+![Stage 3 feature comparison](docs/images/stage3/normal_vs_synthetic_features.png)
+
 PathGuard_Ai는 GPS 이동 데이터를 기반으로 이동 패턴과 이상행동 탐지를 연구하는 포트폴리오용 Python 프로젝트입니다.
 
 1단계에서는 Microsoft GeoLife GPS Trajectories의 `.plt` 파일을 정제된 CSV로 변환하고, 이동 경로를 OpenStreetMap 지도에 시각화했습니다.

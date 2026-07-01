@@ -18,3 +18,4 @@ outputs/maps/*.html
 # 폴더 구조 유지
 !data/processed/.gitkeep
 !outputs/maps/.gitkeep
+!docs/images/stage3/
