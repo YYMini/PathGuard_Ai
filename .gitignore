@@ -13,9 +13,12 @@ Thumbs.db
 data/raw/geolife/Data/
 data/processed/*.csv
 outputs/figures/
+outputs/metrics/
 outputs/maps/*.html
+models/stage4/
 
 # 폴더 구조 유지
 !data/processed/.gitkeep
 !outputs/maps/.gitkeep
 !docs/images/stage3/
+!docs/images/stage4/
