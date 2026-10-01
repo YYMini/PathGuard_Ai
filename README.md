@@ -1,5 +1,110 @@
 # PathGuard_Ai
 
+# Stage 4. PyTorch Autoencoder 학습
+
+Stage 4에서는 Stage 3에서 만든 Train / Validation / Test 분할 데이터를 사용해
+정상 이동 패턴을 학습하는 가벼운 row-level PyTorch Autoencoder를 학습합니다.
+학습에는 `data/processed/train.csv`의 원본 정상 데이터 중 학습 가능하고
+품질이 낮지 않은 행만 사용합니다. 합성 데이터와 `anomaly_label=1` 행은
+Train 데이터에서 제외합니다.
+
+모델 입력은 다음 8개 feature입니다.
+
+* `time_diff_sec`
+* `distance_m`
+* `speed_mps`
+* `acceleration_mps2`
+* `direction_change_deg`
+* `stop_duration_sec`
+* `bearing_sin`
+* `bearing_cos`
+
+`bearing_deg`는 원형 각도 값이 끊기지 않도록 scaling 전에 `bearing_sin`과
+`bearing_cos`로 변환합니다. `latitude`, `longitude`, timestamp, ID, label,
+품질 플래그, split 관련 metadata는 모델 입력으로 사용하지 않습니다.
+
+전처리에는 `StandardScaler`를 사용하며, scaler는 필터링된 Train 행에만
+fit합니다. Validation과 Test 행에는 Train 데이터로 fit된 scaler의 transform만
+적용합니다. Validation / Test 평가 데이터에는 품질이 정상인 원본 정상 행
+(`is_synthetic == False`, `anomaly_label == 0`, `is_low_quality == False`,
+`is_training_eligible == True`)과 합성 이상 구간 행
+(`is_synthetic == True`, `anomaly_label == 1`)만 포함합니다. 합성 이상 구간도
+저품질 원본 GPS 행에서 파생된 경우에는 행동 이상 평가에서 제외합니다. 합성
+trajectory에 복사되어 남아 있는 정상 구간(`is_synthetic == True`,
+`anomaly_label == 0`)도 평가에서 제외합니다.
+
+threshold는 Test 데이터를 사용하지 않고 Validation 정상 행의
+reconstruction error만으로 결정합니다. 기본값은 Validation 정상
+reconstruction error의 95번째 백분위수입니다. Validation의 합성 이상 데이터는
+threshold가 정해진 뒤 평가에만 사용하며, threshold 최적화에는 사용하지 않습니다.
+Test 데이터는 threshold 결정 이후 최종 평가에만 사용합니다.
+
+실행 명령:
+
+```powershell
+python -m src.train_autoencoder
+python -m src.train_autoencoder `
+  --epochs 100 `
+  --batch-size 64 `
+  --learning-rate 0.001 `
+  --patience 15 `
+  --threshold-percentile 95 `
+  --seed 42
+```
+
+Stage 4는 다음 파일을 생성합니다.
+
+```text
+models/stage4/pathguard_autoencoder.pt
+models/stage4/scaler.joblib
+models/stage4/training_config.json
+models/stage4/feature_columns.json
+outputs/metrics/stage4_validation_metrics.json
+outputs/metrics/stage4_test_metrics.json
+outputs/metrics/stage4_training_history.csv
+outputs/metrics/stage4_validation_predictions.csv
+outputs/metrics/stage4_test_predictions.csv
+outputs/metrics/stage4_summary.csv
+outputs/figures/stage4/
+docs/images/stage4/
+```
+
+Validation / Test prediction CSV에는 식별 컬럼, label, `reconstruction_error`,
+`predicted_anomaly`와 함께 `is_low_quality`, `quality_reason`,
+`is_training_eligible`, `source_quality_valid` 및 주요 입력 feature 값을 함께
+저장합니다.
+
+실행 결과 요약:
+
+| 항목 | 값 |
+| --- | ---: |
+| Device | CPU |
+| Train rows | 2,217 |
+| Validation rows | 328 |
+| Test rows | 987 |
+| Validation 정상 | 241 |
+| Validation 이상 | 87 |
+| Test 정상 | 900 |
+| Test 이상 | 87 |
+| Validation 저품질 정상 제외 | 3 |
+| Validation 저품질 기반 합성 이상 제외 | 1 |
+| Test 저품질 정상 제외 | 8 |
+| Test 저품질 기반 합성 이상 제외 | 2 |
+| Best epoch | 91 |
+| Threshold | 0.5423517227 |
+| Validation F1 | 0.6622 |
+| Test accuracy | 0.9189 |
+| Test precision | 0.5310 |
+| Test recall | 0.6897 |
+| Test F1 | 0.6000 |
+| Test ROC-AUC | 0.8183 |
+| Test PR-AUC | 0.5148 |
+
+이 결과는 user `000` 기반 데이터로 Stage 4 학습 및 평가 파이프라인이 정상적으로
+동작하는지 확인한 1차 검증입니다. 최종 일반화 성능을 의미하지는 않습니다. 향후에는
+GeoLife 다중 사용자 데이터로 확장하고, row-level scoring에서 Window 또는
+trajectory 단위 시계열 모델로 확장할 예정입니다.
+
 # Stage 3. 학습 데이터 구성
 
 Stage 3는 `gps_features.csv`를 품질 검사하고, 정상 trajectory에서 합성 이상행동을 만든 뒤
@@ -259,7 +364,7 @@ GeoLife 사용자 `000`의 trajectory 5개를 대상으로 실행한 결과입�
 | Trajectory 수  |      5 |
 | 유효하지 않은 시간 간격 |      0 |
 | NaN 및 무한대     |      0 |
-| 전체 단위 테스트     | 17개 통과 |
+| 전체 단위 테스트     | 68개 통과 |
 
 전체 데이터에서는 다음과 같은 극단값을 확인했습니다.
 
@@ -455,7 +560,7 @@ docs/images/stage2/20081024020959/feature_summary.csv
 python -m unittest discover -s tests
 ```
 
-총 17개의 테스트를 통해 다음 항목을 검증했습니다.
+현재 전체 테스트 68개가 통과하며 다음 항목을 검증합니다.
 
 * Haversine 거리 계산
 * 동서남북 방향의 방위각 계산
@@ -469,6 +574,11 @@ python -m unittest discover -s tests
 * Folium 지도 HTML 생성
 * 포트폴리오 결과 내보내기
 * 시각화 과정에서 원본 DataFrame 유지
+* PyTorch Autoencoder 입력/출력 shape
+* Train / Validation / Test 필터링 로직
+* Train-only `StandardScaler` fit
+* Validation 기반 threshold 계산
+* 모델, Scaler, 지표, 그래프 저장
 
 ---
 
@@ -495,31 +605,29 @@ docs/images/stage2/
 
 ## 현재 구현 범위
 
-현재까지 다음 기능을 구현했습니다.
+현재 완료된 기능:
 
-* GeoLife `.plt` 파일 로딩 및 검증
-* 원본 GPS 데이터의 CSV 변환
-* OpenStreetMap 기반 이동 경로 시각화
-* trajectory별 GPS 이동 특징 생성
-* 거리·속도·가속도 계산
-* 방위각과 방향 변화량 계산
-* 연속 정지 시간 계산
-* GPS 데이터 품질 검증
-* 이동 특징 시계열 그래프 생성
-* 데이터 품질 확인 지점 Folium 지도 표시
-* 경로별 요약 CSV 생성
-* 총 17개의 단위 테스트
+* GeoLife GPS 로딩 및 검증
+* 이동 특징 생성
+* GPS 데이터 품질 검사
+* 합성 이상행동 4종 생성
+* Train / Validation / Test 분할
+* 데이터 누수 검사
+* PyTorch Autoencoder 학습
+* reconstruction error 계산
+* Validation 기반 threshold 결정
+* Test 성능 평가
+* 모델, Scaler, 지표, 그래프 저장
+* 총 68개 테스트 통과
 
-아직 다음 기능은 구현하지 않았습니다.
+아직 구현하지 않은 기능:
 
-* 정상·이상 라벨 생성
-* 규칙 기반 위험 판정
-* 이상 점수 계산
-* 학습 데이터 분할
-* PyTorch
-* Autoencoder
-* 머신러닝 학습
+* GeoLife 다중 사용자 학습
+* Window 또는 trajectory 단위 시계열 모델
+* 규칙 기반 모델과 Autoencoder 성능 비교
 * Streamlit UI
-* Android GPS 연동
+* Android 실시간 GPS 연동
 
-현재 표시되는 속도, 기록 공백, 정지 시간 기준은 데이터를 탐색하기 위한 참고 기준이며 위험 또는 이상행동을 의미하지 않습니다.
+현재 Stage 4 결과는 user `000` 기반 1차 파이프라인 검증입니다. 실제 서비스 수준의
+이상행동 탐지를 위해서는 더 많은 사용자 데이터와 Window 또는 trajectory 단위의
+시계열 모델 검증이 필요합니다.
