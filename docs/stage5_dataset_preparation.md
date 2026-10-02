@@ -120,3 +120,5 @@ Validation 합성 이상은 품질 필터 전 1,117행, 이후 1,113행입니다
 ```
 
 중복 정책을 적용한 고정 dataset을 준비했습니다. 다음 Stage 5.2는 기존 8 feature·모델 구조를 유지하며, 별도 학습 요청 후 시작합니다. 이번 단계에서는 학습·모델 평가·multi-seed·baseline·window 모델을 실행하지 않습니다. 원본 정상과 합성 이상은 연구상 가정·실험 라벨이며 실제 위험 판정 성능을 의미하지 않습니다.
+
+Stage 5.1 이후 seed 42 실험을 완료했습니다. 설정과 결과는 [Stage 5.2 보고서](stage5_autoencoder_generalization.md)를 확인하세요.

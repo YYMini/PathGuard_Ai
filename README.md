@@ -11,6 +11,30 @@ Stage 5 전체는 `feature/stage-5-multiuser-generalization`에서 단계별 커
 완료 후 PR `Stage 5: Multi-user generalization` 하나를 main에 squash merge해 최종 커밋 하나를 남깁니다.
 현재는 PR 생성이나 main merge를 진행하지 않습니다.
 
+# Stage 5.2. Single-seed Unseen-user Evaluation
+
+Stage 4와 동일한 8 feature·Autoencoder·학습 설정으로 처음 보는 사용자를 평가했습니다.
+Stage 5.1의 dedup dataset과 사용자 split을 그대로 사용하고, seed 42 한 번만 실행했습니다.
+
+```powershell
+python -m src.train_multiuser_autoencoder
+```
+
+Train 86,067행에만 scaler를 fit했습니다. Validation 정상 19,448행만으로
+checkpoint와 threshold를 결정한 뒤 Test 48,411행을 평가했습니다.
+Best epoch는 98, Validation normal loss는 0.0447033457,
+95th percentile threshold는 0.1442467570입니다. CPU 실행 시간은 146.78초입니다.
+
+Test 결과는 Precision 0.1682, Recall 0.2789, F1 0.2098, ROC-AUC 0.7225,
+Average Precision(AP) 0.1631, FPR 0.0629입니다. 사용자 macro F1은 0.2319입니다.
+Stage 4와 평가 사용자·규모·이상 비율이 다르므로 변화량을 모델 우열로 해석하지 않습니다.
+
+사용자별·이상 유형별 지표, Stage 4 비교, 명시적 lineage prediction CSV 및 9개 그래프를
+`models/stage5/`, `outputs/metrics/stage5/`, `outputs/figures/stage5/`의 dataset/seed 경로에 저장했습니다.
+기존 120개에 신규 25개를 추가해 전체 **145개 테스트가 통과**했습니다.
+입력 dataset과 Stage 4 산출물은 실행 전후 checksum이 동일합니다.
+자세한 설정·결과·해석은 [Stage 5.2 보고서](docs/stage5_autoencoder_generalization.md)를 확인하세요.
+
 # Stage 5.1. Multi-user Dataset Preparation
 
 GeoLife 사용자 `000~019`의 파일명순 첫 5개 경로를 처리하고 사용자 단위로
@@ -402,7 +426,7 @@ GeoLife 사용자 `000`의 trajectory 5개를 대상으로 실행한 결과입�
 | Trajectory 수  |      5 |
 | 유효하지 않은 시간 간격 |      0 |
 | NaN 및 무한대     |      0 |
-| 전체 단위 테스트     | 120개 통과 |
+| 전체 단위 테스트     | 145개 통과 |
 
 전체 데이터에서는 다음과 같은 극단값을 확인했습니다.
 
@@ -598,7 +622,7 @@ docs/images/stage2/20081024020959/feature_summary.csv
 python -m unittest discover -s tests -v
 ```
 
-현재 전체 테스트 120개가 통과하며 다음 항목을 검증합니다.
+현재 전체 테스트 145개가 통과하며 다음 항목을 검증합니다.
 
 * Haversine 거리 계산
 * 동서남북 방향의 방위각 계산
@@ -656,14 +680,14 @@ docs/images/stage2/
 * Validation 기반 threshold 결정
 * Test 성능 평가
 * 모델, Scaler, 지표, 그래프 저장
-* 총 120개 테스트 통과
+* 총 145개 테스트 통과
 * GeoLife 다중 사용자 데이터 준비와 사용자 단위 split
 * 원본 point index lineage·fingerprint·CSV checksum 검증
 * 동일 split exact duplicate 제외와 cross-split leakage 실패
+* 동일 Autoencoder의 unseen-user 일반화 실험 (seed 42)
+* 사용자 macro 및 이상 유형별 평가·Average Precision 보고
 
 아직 구현하지 않은 기능:
-
-* GeoLife 다중 사용자 학습
 
 * Stage 5.3 model multi-seed 반복 및 집계
 * Window 또는 trajectory 단위 시계열 모델
