@@ -1,5 +1,43 @@
 # PathGuard_Ai
 
+# Stage 5: Multi-user Generalization
+
+- Stage 5.1: Multi-user Dataset Preparation
+- Stage 5.2: Single-seed Unseen-user Evaluation
+- Stage 5.3: Multi-seed Stability
+- Stage 5.4: Baseline Comparison
+
+Stage 5 전체는 `feature/stage-5-multiuser-generalization`에서 단계별 커밋으로 진행합니다.
+완료 후 PR `Stage 5: Multi-user generalization` 하나를 main에 squash merge해 최종 커밋 하나를 남깁니다.
+현재는 PR 생성이나 main merge를 진행하지 않습니다.
+
+# Stage 5.1. Multi-user Dataset Preparation
+
+GeoLife 사용자 `000~019`의 파일명순 첫 5개 경로를 처리하고 사용자 단위로
+Train/Validation/Test를 분리합니다. 기존 특징·품질·합성 로직을 재사용하며
+이 단계에서는 모델 학습을 실행하지 않습니다.
+
+```powershell
+python -m src.prepare_multiuser_dataset
+python -m src.prepare_multiuser_dataset --validate-existing data/processed/stage5/geolife_u000_019_first5_seed42_dedup
+```
+
+실제 재생성 결과: 입력 100개 경로 중 모델용 82개 적격, 정제 후 155,743행,
+유효 정상 151,814행입니다. Train은 51개 경로·86,067행이며, 평가용 Validation은
+12개 경로·정상 19,448 + 합성 이상 1,113행, Test는 19개 경로·정상 46,299 + 합성 이상 2,112행입니다.
+기존 사용자 split과 Validation/Test 결과를 유지했고, CSV round-trip과 원본 행 lineage를 검증했습니다.
+
+동일 split의 exact duplicate는 원본 파일명·trajectory ID 순 첫 번째만 모델용으로 유지합니다.
+Train 사용자 `014`의 중복 1개를 제외했으며, 정제 2,491행 중 모델용 정상 행 감소분은 2,482행입니다.
+원본과 제외 사유는 입력/경로 manifest 및 summary·leakage·duplicate report에 보존합니다.
+이 정책은 합성 생성 전에 모든 split에 적용하며, split 간 동일 fingerprint는 leakage error로 실패합니다.
+
+감사용 split CSV와 합성 정상 복사 구간을 제외한 평가용 CSV를 별도로 저장합니다.
+데이터는 `data/processed/stage5/<dataset_id>/` 아래에 생성하며 Git에서 제외합니다.
+기존 테스트를 유지하고 중복 정책 테스트 13개를 추가해 전체 **120개 테스트가 통과**했습니다.
+자세한 스키마·중복 정책·실제 결과는
+[Stage 5.1 문서](docs/stage5_dataset_preparation.md)를 확인하세요.
+
 # Stage 4. PyTorch Autoencoder 학습
 
 Stage 4에서는 Stage 3에서 만든 Train / Validation / Test 분할 데이터를 사용해
@@ -364,7 +402,7 @@ GeoLife 사용자 `000`의 trajectory 5개를 대상으로 실행한 결과입�
 | Trajectory 수  |      5 |
 | 유효하지 않은 시간 간격 |      0 |
 | NaN 및 무한대     |      0 |
-| 전체 단위 테스트     | 68개 통과 |
+| 전체 단위 테스트     | 120개 통과 |
 
 전체 데이터에서는 다음과 같은 극단값을 확인했습니다.
 
@@ -557,10 +595,10 @@ docs/images/stage2/20081024020959/feature_summary.csv
 다음 명령으로 전체 테스트를 실행합니다.
 
 ```powershell
-python -m unittest discover -s tests
+python -m unittest discover -s tests -v
 ```
 
-현재 전체 테스트 68개가 통과하며 다음 항목을 검증합니다.
+현재 전체 테스트 120개가 통과하며 다음 항목을 검증합니다.
 
 * Haversine 거리 계산
 * 동서남북 방향의 방위각 계산
@@ -618,11 +656,16 @@ docs/images/stage2/
 * Validation 기반 threshold 결정
 * Test 성능 평가
 * 모델, Scaler, 지표, 그래프 저장
-* 총 68개 테스트 통과
+* 총 120개 테스트 통과
+* GeoLife 다중 사용자 데이터 준비와 사용자 단위 split
+* 원본 point index lineage·fingerprint·CSV checksum 검증
+* 동일 split exact duplicate 제외와 cross-split leakage 실패
 
 아직 구현하지 않은 기능:
 
 * GeoLife 다중 사용자 학습
+
+* Stage 5.3 model multi-seed 반복 및 집계
 * Window 또는 trajectory 단위 시계열 모델
 * 규칙 기반 모델과 Autoencoder 성능 비교
 * Streamlit UI
