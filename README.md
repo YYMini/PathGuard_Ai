@@ -11,6 +11,22 @@ Stage 5 전체는 `feature/stage-5-multiuser-generalization`에서 단계별 커
 완료 후 PR `Stage 5: Multi-user generalization` 하나를 main에 squash merge해 최종 커밋 하나를 남깁니다.
 현재는 PR 생성이나 main merge를 진행하지 않습니다.
 
+# Stage 5.3. Multi-seed Stability
+
+동일 dataset·split·synthetic data·모델·학습 설정으로 model seed **7, 21, 42, 100, 2026**을 비교했습니다.
+기존 seed 42는 config/checksum 및 복원 예측 검증 후 재사용하고, 나머지 4개 seed를 새로 학습했습니다.
+
+```powershell
+python -m src.evaluate_multi_seed_stability
+```
+
+Test F1은 **0.2291 ± 0.0474**, ROC-AUC는 **0.7476 ± 0.0341**,
+Average Precision은 **0.1568 ± 0.0290**입니다(5 seeds, sample std ddof=1).
+전체·사용자 macro·사용자별·이상 유형별 mean/std/min/max와 6개 집계 그래프를 저장했습니다.
+전체 **164개 테스트가 통과**했으며 dataset과 기존 seed 42 산출물을 보존했습니다.
+자세한 결과·seed 42 위치·해석은 [Stage 5.3 보고서](docs/stage5_multi_seed_stability.md)를 확인하세요.
+Stage 5.3은 검증 후 단계별 커밋으로 게시하며 PR과 main merge는 Stage 5 완료 후 결정합니다.
+
 # Stage 5.2. Single-seed Unseen-user Evaluation
 
 Stage 4와 동일한 8 feature·Autoencoder·학습 설정으로 처음 보는 사용자를 평가했습니다.
@@ -426,7 +442,7 @@ GeoLife 사용자 `000`의 trajectory 5개를 대상으로 실행한 결과입�
 | Trajectory 수  |      5 |
 | 유효하지 않은 시간 간격 |      0 |
 | NaN 및 무한대     |      0 |
-| 전체 단위 테스트     | 145개 통과 |
+| 전체 단위 테스트     | 164개 통과 |
 
 전체 데이터에서는 다음과 같은 극단값을 확인했습니다.
 
@@ -622,7 +638,7 @@ docs/images/stage2/20081024020959/feature_summary.csv
 python -m unittest discover -s tests -v
 ```
 
-현재 전체 테스트 145개가 통과하며 다음 항목을 검증합니다.
+현재 전체 테스트 164개가 통과하며 다음 항목을 검증합니다.
 
 * Haversine 거리 계산
 * 동서남북 방향의 방위각 계산
@@ -680,16 +696,16 @@ docs/images/stage2/
 * Validation 기반 threshold 결정
 * Test 성능 평가
 * 모델, Scaler, 지표, 그래프 저장
-* 총 145개 테스트 통과
+* 총 164개 테스트 통과
 * GeoLife 다중 사용자 데이터 준비와 사용자 단위 split
 * 원본 point index lineage·fingerprint·CSV checksum 검증
 * 동일 split exact duplicate 제외와 cross-split leakage 실패
 * 동일 Autoencoder의 unseen-user 일반화 실험 (seed 42)
 * 사용자 macro 및 이상 유형별 평가·Average Precision 보고
+* 고정 dataset의 5 model seed 안정성 및 sample std 집계
 
 아직 구현하지 않은 기능:
 
-* Stage 5.3 model multi-seed 반복 및 집계
 * Window 또는 trajectory 단위 시계열 모델
 * 규칙 기반 모델과 Autoencoder 성능 비교
 * Streamlit UI

@@ -302,12 +302,18 @@ def output_directories(output_root: Path, dataset_id: str, seed: int) -> dict[st
 
 def run_pipeline(data_dir: Path = DEFAULT_DATA_DIR, output_root: Path = ROOT,
                  options: TrainingOptions = TrainingOptions(),
-                 stage4_metrics_path: Path | None = None) -> dict:
+                 stage4_metrics_path: Path | None = None,
+                 experiment_stage: str = "5.2") -> dict:
     """Single run. Existing outputs are refused rather than overwritten."""
     started = time.perf_counter()
     data_dir, output_root = Path(data_dir).resolve(), Path(output_root).resolve()
-    if options.seed != 42 or options.threshold_percentile != 95:
-        raise ValueError('Stage 5-B uses model seed 42 and the fixed 95th percentile.')
+    if experiment_stage not in ('5.2', '5.3'):
+        raise ValueError('Unknown Stage 5 experiment.')
+    if experiment_stage == '5.3' and (options.seed not in (7, 21, 42, 100, 2026)
+            or options != TrainingOptions(seed=options.seed)):
+        raise ValueError('Stage 5.3 requires the exact five model seeds and fixed hyperparameters.')
+    if options.threshold_percentile != 95 or (experiment_stage == '5.2' and options.seed != 42):
+        raise ValueError('Stage 5.2 uses model seed 42; all Stage 5 runs use the fixed 95th percentile.')
     summary, users = read_stage5_metadata(data_dir)
     directories = output_directories(output_root, summary['dataset_id'], options.seed)
     if any(path.exists() for path in directories.values()):
@@ -325,14 +331,14 @@ def run_pipeline(data_dir: Path = DEFAULT_DATA_DIR, output_root: Path = ROOT,
     model_dir, metrics_dir, figure_dir = (directories[k] for k in ('model', 'metrics', 'figures'))
     set_seed(options.seed)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print(f'Stage 5-B: device={device}; seed={options.seed}; Train rows={len(train)}; '
+    print(f'Stage {experiment_stage}: device={device}; seed={options.seed}; Train rows={len(train)}; '
           f'Validation normal rows={len(validation_normal_rows(validation))}', flush=True)
     selection = fit_and_select(train, validation, options, device, model_dir / 'model.pt')
     joblib.dump(selection['scaler'], model_dir / 'scaler.joblib')
     save_json(model_dir / 'feature_columns.json', {'feature_columns': FEATURE_COLUMNS})
     selection['history'].to_csv(metrics_dir / 'training_history.csv', index=False)
     config = {
-        'stage': '5-B', 'dataset_id': summary['dataset_id'], 'dataset_path': str(data_dir),
+        'stage': experiment_stage, 'dataset_id': summary['dataset_id'], 'dataset_path': str(data_dir),
         'dataset_summary_sha256': dataset_hash_before, 'dataset_file_checksums': summary['file_checksums'],
         'feature_columns': FEATURE_COLUMNS, 'model_architecture': MODEL_ARCHITECTURE, **asdict(options),
         'actual_epochs': len(selection['history']), 'best_epoch': selection['best_epoch'],
