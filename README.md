@@ -11,6 +11,25 @@ Stage 5 전체는 `feature/stage-5-multiuser-generalization`에서 단계별 커
 완료 후 PR `Stage 5: Multi-user generalization` 하나를 main에 squash merge해 최종 커밋 하나를 남깁니다.
 현재는 PR 생성이나 main merge를 진행하지 않습니다.
 
+# Stage 5.4. Baseline Comparison
+
+동일 frozen dataset과 8 feature, Train 정상 fit, Validation 정상 p95 threshold에서
+Statistical Rule·Isolation Forest·기존 Stage 5.3 Autoencoder 5 seeds를 비교했습니다.
+Rule은 Train median/IQR 기반 최대 절대 편차를 쓰는 deterministic 단일 실행이며,
+IF는 200 trees와 고정 5 seeds를 사용합니다. AE 학습·추론·threshold 재계산은 수행하지 않았습니다.
+
+```powershell
+python -m src.compare_stage5_baselines
+```
+
+Test F1: Rule **0.2569**, IF **0.2660 ± 0.0054**, AE **0.2291 ± 0.0474**.
+IF/AE ROC-AUC는 **0.7467 / 0.7476**, AP는 **0.2106 / 0.1568**입니다.
+AE는 abnormal_speed Recall, IF는 long_stop/direction_change Recall에서 상대적 강점을 보였고,
+route_deviation은 세 방식 모두 낮았습니다. 모델 우승이나 architecture의 인과적 한계로 결론내리지 않습니다.
+전체 **188개 테스트 통과**, 실험 **33.03초**, 데이터와 기존 AE 산출물 checksum을 보존했습니다.
+[Stage 5.4 보고서](docs/stage5_baseline_comparison.md)에 사전 점수 정의·공정성·전체/사용자/유형 지표와
+6개 그래프·후속 문제 후보를 기록했습니다. Stage 5.3은 `ff5ca3e`로 게시했고 Stage 5.4는 재검증 후 단계별 커밋으로 게시합니다.
+
 # Stage 5.3. Multi-seed Stability
 
 동일 dataset·split·synthetic data·모델·학습 설정으로 model seed **7, 21, 42, 100, 2026**을 비교했습니다.
@@ -442,7 +461,7 @@ GeoLife 사용자 `000`의 trajectory 5개를 대상으로 실행한 결과입�
 | Trajectory 수  |      5 |
 | 유효하지 않은 시간 간격 |      0 |
 | NaN 및 무한대     |      0 |
-| 전체 단위 테스트     | 164개 통과 |
+| 전체 단위 테스트     | 188개 통과 |
 
 전체 데이터에서는 다음과 같은 극단값을 확인했습니다.
 
@@ -638,7 +657,7 @@ docs/images/stage2/20081024020959/feature_summary.csv
 python -m unittest discover -s tests -v
 ```
 
-현재 전체 테스트 164개가 통과하며 다음 항목을 검증합니다.
+현재 전체 테스트 188개가 통과하며 다음 항목을 검증합니다.
 
 * Haversine 거리 계산
 * 동서남북 방향의 방위각 계산
@@ -696,18 +715,18 @@ docs/images/stage2/
 * Validation 기반 threshold 결정
 * Test 성능 평가
 * 모델, Scaler, 지표, 그래프 저장
-* 총 164개 테스트 통과
+* 총 188개 테스트 통과
 * GeoLife 다중 사용자 데이터 준비와 사용자 단위 split
 * 원본 point index lineage·fingerprint·CSV checksum 검증
 * 동일 split exact duplicate 제외와 cross-split leakage 실패
 * 동일 Autoencoder의 unseen-user 일반화 실험 (seed 42)
 * 사용자 macro 및 이상 유형별 평가·Average Precision 보고
 * 고정 dataset의 5 model seed 안정성 및 sample std 집계
+* Statistical Rule/Isolation Forest/Autoencoder의 동일 조건 baseline 비교
 
 아직 구현하지 않은 기능:
 
 * Window 또는 trajectory 단위 시계열 모델
-* 규칙 기반 모델과 Autoencoder 성능 비교
 * Streamlit UI
 * Android 실시간 GPS 연동
 
