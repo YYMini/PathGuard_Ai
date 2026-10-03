@@ -7,9 +7,28 @@
 - Stage 5.3: Multi-seed Stability
 - Stage 5.4: Baseline Comparison
 
-Stage 5 전체는 `feature/stage-5-multiuser-generalization`에서 단계별 커밋으로 진행합니다.
-완료 후 PR `Stage 5: Multi-user generalization` 하나를 main에 squash merge해 최종 커밋 하나를 남깁니다.
-현재는 PR 생성이나 main merge를 진행하지 않습니다.
+Stage 5 전체는 [PR #4](https://github.com/YYMini/PathGuard_Ai/pull/4)로 main에 squash merge했습니다.
+최종 commit은 `f2e7eeed3f9cb4ffef9b635ca4205dda6954fab0`입니다.
+Stage 6 작업은 최신 main 기반 `feature/stage-6-route-context`에서 분리해 진행합니다.
+
+# Stage 6.1. Route Representation & Synthetic Label Audit
+
+고정 데이터와 기존 점수만 감사했으며 모델 학습·추론·threshold/scaler 재계산은 하지 않았습니다.
+Test route 378개 중 **307개(81.2169%)**가 8 feature의 Train marginal p01~p99 안에 있습니다.
+변위 median은 **118.010872m**, 원본과 8 feature가 동일한 labelled point는 **19개**입니다.
+Train trajectory의 200m longitude 회전 반례에서 8 feature가 동일하게 유지돼 절대 위치 정보의 한계를 확인했습니다.
+실제 주입은 acceleration/bearing도 바꾸므로 모든 route가 feature에서 동일하다고 해석하지 않습니다.
+판정은 **D(복수 문제 관찰)**이며 원인별 기여율은 검증되지 않았습니다.
+Stage 6.2는 Train-only route reference의 coverage/abstention 검증을 제안하며 아직 구현하지 않았습니다.
+
+```powershell
+python -m src.audit_route_representation
+```
+
+기존 출력이 있으면 덮어쓰기를 거부합니다. 전체 **208개 테스트 PASS**(신규 20개), audit **16.93초**,
+보호 파일 **235개 checksum 유지**, cross-split leakage **0**입니다.
+[Stage 6.1 보고서](docs/stage6_route_representation_audit.md)에 규칙·통계·사용자 결과·6개 그래프·누수 조건을 기록했습니다.
+Stage 6.1은 `feature/stage-6-route-context`에서 검증 후 checkpoint로 게시합니다. Stage 6 PR/main merge 및 Stage 6.2 구현은 진행하지 않습니다.
 
 # Stage 5.4. Baseline Comparison
 
@@ -28,7 +47,7 @@ AE는 abnormal_speed Recall, IF는 long_stop/direction_change Recall에서 상�
 route_deviation은 세 방식 모두 낮았습니다. 모델 우승이나 architecture의 인과적 한계로 결론내리지 않습니다.
 전체 **188개 테스트 통과**, 실험 **33.03초**, 데이터와 기존 AE 산출물 checksum을 보존했습니다.
 [Stage 5.4 보고서](docs/stage5_baseline_comparison.md)에 사전 점수 정의·공정성·전체/사용자/유형 지표와
-6개 그래프·후속 문제 후보를 기록했습니다. Stage 5.3은 `ff5ca3e`로 게시했고 Stage 5.4는 재검증 후 단계별 커밋으로 게시합니다.
+6개 그래프·후속 문제 후보를 기록했습니다. Stage 5.3은 `ff5ca3e`로 게시했고 Stage 5.4는 `19c603a`로 게시했으며 local/remote SHA가 일치합니다.
 
 # Stage 5.3. Multi-seed Stability
 
@@ -657,7 +676,7 @@ docs/images/stage2/20081024020959/feature_summary.csv
 python -m unittest discover -s tests -v
 ```
 
-현재 전체 테스트 188개가 통과하며 다음 항목을 검증합니다.
+현재 전체 테스트 208개가 통과하며 다음 항목을 검증합니다.
 
 * Haversine 거리 계산
 * 동서남북 방향의 방위각 계산
@@ -715,7 +734,7 @@ docs/images/stage2/
 * Validation 기반 threshold 결정
 * Test 성능 평가
 * 모델, Scaler, 지표, 그래프 저장
-* 총 188개 테스트 통과
+* 총 208개 테스트 통과
 * GeoLife 다중 사용자 데이터 준비와 사용자 단위 split
 * 원본 point index lineage·fingerprint·CSV checksum 검증
 * 동일 split exact duplicate 제외와 cross-split leakage 실패
