@@ -12,10 +12,12 @@ Thumbs.db
 # GeoLife 원본 및 생성 결과
 data/raw/geolife/Data/
 data/processed/*.csv
+data/processed/stage5/
 outputs/figures/
 outputs/metrics/
 outputs/maps/*.html
 models/stage4/
+models/stage5/
 
 # 폴더 구조 유지
 !data/processed/.gitkeep
