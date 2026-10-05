@@ -1,0 +1,332 @@
+{
+  "schema_version": 1,
+  "artifact_type": "candidate_spec",
+  "stage": "6.7",
+  "model_families": [
+    "statistical_rule",
+    "isolation_forest",
+    "autoencoder"
+  ],
+  "model_seeds": [
+    7,
+    21,
+    42,
+    100,
+    2026
+  ],
+  "gates": [
+    {
+      "gate_id": "G0",
+      "name": "RAW",
+      "window_points": 1,
+      "minimum_positive": 1
+    },
+    {
+      "gate_id": "G1",
+      "name": "CONSECUTIVE_2",
+      "window_points": 2,
+      "minimum_positive": 2
+    },
+    {
+      "gate_id": "G2",
+      "name": "CONSECUTIVE_3",
+      "window_points": 3,
+      "minimum_positive": 3
+    },
+    {
+      "gate_id": "G3",
+      "name": "CONSECUTIVE_5",
+      "window_points": 5,
+      "minimum_positive": 5
+    },
+    {
+      "gate_id": "G4",
+      "name": "VOTE_2_OF_3",
+      "window_points": 3,
+      "minimum_positive": 2
+    },
+    {
+      "gate_id": "G5",
+      "name": "VOTE_3_OF_5",
+      "window_points": 5,
+      "minimum_positive": 3
+    },
+    {
+      "gate_id": "G6",
+      "name": "VOTE_5_OF_10",
+      "window_points": 10,
+      "minimum_positive": 5
+    }
+  ],
+  "cooldown_seconds": [
+    0,
+    60,
+    300
+  ],
+  "policies": [
+    {
+      "gate_id": "G0",
+      "name": "RAW",
+      "window_points": 1,
+      "minimum_positive": 1,
+      "policy_id": "G0_C0",
+      "cooldown_seconds": 0,
+      "complexity_gate_rank": 0,
+      "complexity_cooldown_rank": 0
+    },
+    {
+      "gate_id": "G0",
+      "name": "RAW",
+      "window_points": 1,
+      "minimum_positive": 1,
+      "policy_id": "G0_C60",
+      "cooldown_seconds": 60,
+      "complexity_gate_rank": 0,
+      "complexity_cooldown_rank": 1
+    },
+    {
+      "gate_id": "G0",
+      "name": "RAW",
+      "window_points": 1,
+      "minimum_positive": 1,
+      "policy_id": "G0_C300",
+      "cooldown_seconds": 300,
+      "complexity_gate_rank": 0,
+      "complexity_cooldown_rank": 2
+    },
+    {
+      "gate_id": "G1",
+      "name": "CONSECUTIVE_2",
+      "window_points": 2,
+      "minimum_positive": 2,
+      "policy_id": "G1_C0",
+      "cooldown_seconds": 0,
+      "complexity_gate_rank": 1,
+      "complexity_cooldown_rank": 0
+    },
+    {
+      "gate_id": "G1",
+      "name": "CONSECUTIVE_2",
+      "window_points": 2,
+      "minimum_positive": 2,
+      "policy_id": "G1_C60",
+      "cooldown_seconds": 60,
+      "complexity_gate_rank": 1,
+      "complexity_cooldown_rank": 1
+    },
+    {
+      "gate_id": "G1",
+      "name": "CONSECUTIVE_2",
+      "window_points": 2,
+      "minimum_positive": 2,
+      "policy_id": "G1_C300",
+      "cooldown_seconds": 300,
+      "complexity_gate_rank": 1,
+      "complexity_cooldown_rank": 2
+    },
+    {
+      "gate_id": "G2",
+      "name": "CONSECUTIVE_3",
+      "window_points": 3,
+      "minimum_positive": 3,
+      "policy_id": "G2_C0",
+      "cooldown_seconds": 0,
+      "complexity_gate_rank": 3,
+      "complexity_cooldown_rank": 0
+    },
+    {
+      "gate_id": "G2",
+      "name": "CONSECUTIVE_3",
+      "window_points": 3,
+      "minimum_positive": 3,
+      "policy_id": "G2_C60",
+      "cooldown_seconds": 60,
+      "complexity_gate_rank": 3,
+      "complexity_cooldown_rank": 1
+    },
+    {
+      "gate_id": "G2",
+      "name": "CONSECUTIVE_3",
+      "window_points": 3,
+      "minimum_positive": 3,
+      "policy_id": "G2_C300",
+      "cooldown_seconds": 300,
+      "complexity_gate_rank": 3,
+      "complexity_cooldown_rank": 2
+    },
+    {
+      "gate_id": "G3",
+      "name": "CONSECUTIVE_5",
+      "window_points": 5,
+      "minimum_positive": 5,
+      "policy_id": "G3_C0",
+      "cooldown_seconds": 0,
+      "complexity_gate_rank": 5,
+      "complexity_cooldown_rank": 0
+    },
+    {
+      "gate_id": "G3",
+      "name": "CONSECUTIVE_5",
+      "window_points": 5,
+      "minimum_positive": 5,
+      "policy_id": "G3_C60",
+      "cooldown_seconds": 60,
+      "complexity_gate_rank": 5,
+      "complexity_cooldown_rank": 1
+    },
+    {
+      "gate_id": "G3",
+      "name": "CONSECUTIVE_5",
+      "window_points": 5,
+      "minimum_positive": 5,
+      "policy_id": "G3_C300",
+      "cooldown_seconds": 300,
+      "complexity_gate_rank": 5,
+      "complexity_cooldown_rank": 2
+    },
+    {
+      "gate_id": "G4",
+      "name": "VOTE_2_OF_3",
+      "window_points": 3,
+      "minimum_positive": 2,
+      "policy_id": "G4_C0",
+      "cooldown_seconds": 0,
+      "complexity_gate_rank": 2,
+      "complexity_cooldown_rank": 0
+    },
+    {
+      "gate_id": "G4",
+      "name": "VOTE_2_OF_3",
+      "window_points": 3,
+      "minimum_positive": 2,
+      "policy_id": "G4_C60",
+      "cooldown_seconds": 60,
+      "complexity_gate_rank": 2,
+      "complexity_cooldown_rank": 1
+    },
+    {
+      "gate_id": "G4",
+      "name": "VOTE_2_OF_3",
+      "window_points": 3,
+      "minimum_positive": 2,
+      "policy_id": "G4_C300",
+      "cooldown_seconds": 300,
+      "complexity_gate_rank": 2,
+      "complexity_cooldown_rank": 2
+    },
+    {
+      "gate_id": "G5",
+      "name": "VOTE_3_OF_5",
+      "window_points": 5,
+      "minimum_positive": 3,
+      "policy_id": "G5_C0",
+      "cooldown_seconds": 0,
+      "complexity_gate_rank": 4,
+      "complexity_cooldown_rank": 0
+    },
+    {
+      "gate_id": "G5",
+      "name": "VOTE_3_OF_5",
+      "window_points": 5,
+      "minimum_positive": 3,
+      "policy_id": "G5_C60",
+      "cooldown_seconds": 60,
+      "complexity_gate_rank": 4,
+      "complexity_cooldown_rank": 1
+    },
+    {
+      "gate_id": "G5",
+      "name": "VOTE_3_OF_5",
+      "window_points": 5,
+      "minimum_positive": 3,
+      "policy_id": "G5_C300",
+      "cooldown_seconds": 300,
+      "complexity_gate_rank": 4,
+      "complexity_cooldown_rank": 2
+    },
+    {
+      "gate_id": "G6",
+      "name": "VOTE_5_OF_10",
+      "window_points": 10,
+      "minimum_positive": 5,
+      "policy_id": "G6_C0",
+      "cooldown_seconds": 0,
+      "complexity_gate_rank": 6,
+      "complexity_cooldown_rank": 0
+    },
+    {
+      "gate_id": "G6",
+      "name": "VOTE_5_OF_10",
+      "window_points": 10,
+      "minimum_positive": 5,
+      "policy_id": "G6_C60",
+      "cooldown_seconds": 60,
+      "complexity_gate_rank": 6,
+      "complexity_cooldown_rank": 1
+    },
+    {
+      "gate_id": "G6",
+      "name": "VOTE_5_OF_10",
+      "window_points": 10,
+      "minimum_positive": 5,
+      "policy_id": "G6_C300",
+      "cooldown_seconds": 300,
+      "complexity_gate_rank": 6,
+      "complexity_cooldown_rank": 2
+    }
+  ],
+  "causal_semantics": {
+    "history": "trailing current-and-past only",
+    "warmup": "gate false until full window",
+    "state_scope": "individual source trajectory / synthetic sample, never user-wide",
+    "gate_reset": "trajectory boundary, missing source index or interval > existing 300 sec long-gap threshold",
+    "cooldown_reset": "trajectory boundary only; retain last emission across quality holes",
+    "notification_candidate": "gate positive-run start, never every positive point",
+    "cooldown_eligibility": "current_timestamp-last_emitted_timestamp >= cooldown_seconds",
+    "suppressed_candidate": "do not update last emitted time; no deferred notification inside same gate run",
+    "event_boundary": "do not reset gate or cooldown at label onset",
+    "synthetic_context": "replay existing full sample prefix through event end; reuse only source-normal predictions whose raw coordinates/time and all eight features match unmodified pre-event copy; after-event unscored rows unused",
+    "quality_exclusions": "unknown decisions omitted; never impute, bridge or fill history"
+  },
+  "metric_contract": {
+    "primary_event": "notification inside full labelled event",
+    "auxiliary_event": "any gate-positive inside event",
+    "early_cutoffs": [
+      0.1,
+      0.25,
+      0.5
+    ],
+    "early_denominator": "all events including misses",
+    "coverage": "TP/full label count and evaluated count both stored; notification occurrence coverage distinguished from gate coverage",
+    "delay": "detected-only, misses NA",
+    "negative_scope": "existing evaluation original-normal rows",
+    "per_hour": "existing Stage 6.6 adjacent quality-valid interval exposure",
+    "stage66_regression": "raw gate EDR/early/coverage/delay, raw FP and false gate runs; notification EDR distinguished because pre-event run may have started earlier"
+  },
+  "selection": {
+    "split": "validation",
+    "raw_policy": "G0_C0",
+    "unit": "one policy per model family across every seed and user",
+    "mean_edr_retention_min": 0.9,
+    "mean_early25_retention_min": 0.8,
+    "seed_edr_retention_min": 0.85,
+    "minimum_guardrail_seeds": 4,
+    "float_tolerance": 1e-12,
+    "objective_order": [
+      "false_notifications_per_1000_normal_points ascending",
+      "false_notifications_per_trajectory ascending",
+      "notification_delay_points_median ascending (NA last)",
+      "notification_event_detection_rate descending",
+      "complexity_gate_rank ascending",
+      "complexity_cooldown_rank ascending"
+    ],
+    "weighted_utility": false,
+    "raw_always_eligible": true
+  },
+  "research_limitations": {
+    "policy_family_post_hoc_to_stage66_test": true,
+    "test_parameter_selection": false,
+    "untouched_final_test_claim": false,
+    "new_confirmatory_user_cohort_needed": true
+  }
+}

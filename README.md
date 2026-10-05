@@ -11,6 +11,26 @@ Stage 5 전체는 [PR #4](https://github.com/YYMini/PathGuard_Ai/pull/4)로 main
 최종 commit은 `f2e7eeed3f9cb4ffef9b635ca4205dda6954fab0`입니다.
 Stage 6 작업은 최신 main 기반 `feature/stage-6-route-context`에서 분리해 진행합니다.
 
+# Stage 6.7. Validation-only Alert Aggregation & Temporal Policy Audit
+
+7 gates × 3 cooldown의 21개 후보를 사전 고정하고 Validation의 정상19,448행/12events에서만 선택했습니다.
+세family 모두 **G0_C60(RAW gate +60s cooldown)**을 lock한 뒤 Test에는 RAW/LOCKED만 적용했습니다.
+Test Notification EDR는 Rule **89.47→73.68%**, IF **92.63→82.11%**, AE **91.58→75.79%**입니다.
+오경보 notification 감소는 family 평균 수 기준 **49.02/39.52/57.27%**지만 정상 any-notification은 **100%**가 남았습니다.
+Gate/point지표는 그대로이고 cooldown이 실제 event를 놓치거나 늦추어 **AF + AH(탐지 retention) + AI**로 판단했습니다.
+
+전체 **458개 테스트 PASS**(신규68), 보호파일 **524개 변경0**, Validation74.42s/Test33.78s입니다.
+독립verifier가231Validation/22Testpolicy-seed및2,772/418event판단을재계산했습니다.
+[57개항목상세보고서](docs/stage6_alert_aggregation_audit.md)에eligibility/lock/사용자·seed/알림감소·탐지희생을기록했습니다.
+기존11개Validation/Testprediction을재사용했으며training/inference/threshold변경없음입니다.
+Candidatefamily는Stage6.6Test관찰후설계해현재Test를untouchedfinalbenchmark로주장하지않습니다.
+Stage6.7은미커밋/미푸시,PR/mainmerge없음.Stage6.8은제안만했습니다.
+
+```powershell
+python -m src.audit_alert_aggregation --phase validation-select
+python -m src.audit_alert_aggregation --phase test-evaluate --locked-policy outputs/metrics/stage6/alert_aggregation/locked_alert_policies.json
+```
+
 # Stage 6.6. Segment / Event Evaluation Protocol Audit
 
 기존 11개 detector prediction으로 19개 route event와 정상 46,299행의 alert burden을 평가했습니다.
@@ -25,7 +45,7 @@ Detected-only median delay는 모든 run에서 **1 point / 3 seconds**이지만 
 Full label 379행과 평가 예측 378행의 분모 차이, quality holes와 long-gap 노출 처리를 명시했습니다.
 [42개 항목의 상세 보고서](docs/stage6_event_evaluation_protocol.md)에 사용자·seed·delay·coverage·burden 및 dual protocol 권고를 기록했습니다.
 공식 Stage 5 metric은 보존했으며 재학습·추론·threshold tuning·alert smoothing을 수행하지 않았습니다.
-Stage 6.6은 checkpoint 대상으로 확정했습니다. PR/main merge 없음; Stage 6.7은 아직 구현하지 않았습니다.
+Stage 6.6은 `cd5bbf0`로 checkpoint 게시했으며 로컬/원격 HEAD가 일치합니다.
 
 ```powershell
 python -m src.audit_event_evaluation_protocol
