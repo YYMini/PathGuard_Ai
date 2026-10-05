@@ -1,0 +1,4 @@
+model,raw_mean_notifications,locked_mean_notifications,reduction_ratio_family_means_pct,seed_reduction_mean_pct,seed_reduction_sample_std,na_reason
+autoencoder,8971.8,3745.2,58.25586838761452,57.230741180268794,6.441317500906492,
+isolation_forest,6040.4,3460.4,42.712403152109125,42.66732094386903,1.3366100156736365,
+statistical_rule,6862.0,3456.0,49.6356747303993,49.6356747303993,,
