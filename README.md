@@ -11,6 +11,25 @@ Stage 5 전체는 [PR #4](https://github.com/YYMini/PathGuard_Ai/pull/4)로 main
 최종 commit은 `f2e7eeed3f9cb4ffef9b635ca4205dda6954fab0`입니다.
 Stage 6 작업은 최신 main 기반 `feature/stage-6-route-context`에서 분리해 진행합니다.
 
+# Stage 6.4. Causal Trajectory / Window Similarity Identifiability Audit
+
+W=10/25/50, gap=0/10/25/50, prior/prefix/combined의 36개 사전 정의 조합에서
+정상 46,299 / route deviation 378 endpoint를 모두 분석했습니다.
+겹치지 않는 과거 window의 absolute-space discrete Frechet distance를 비교하며
+reference stride=10의 제한된 grid 내 최소값은 정확하게 계산합니다.
+W10/gap0 combined ROC-AUC/AP는 **0.686174/0.012270**, hard subset AUC는 **0.683646**입니다.
+Train-median 이하 step-distance subset에서는 제한된 추가 신호가 있지만,
+전체 route 분리력 개선과 장기 route memory의 성공은 입증하지 못했습니다.
+
+전체 **307개 테스트 PASS**(신규 35), 실제 audit **349.04초**, 보호 파일 **370개 변경 0**,
+causality/overlap 위반 **0**입니다. [38개 항목의 상세 보고서](docs/stage6_window_similarity_audit.md)에
+전체 config·상관·hard/low-distance·사용자·boundary·다음 후보를 기록했습니다.
+Stage 6.4는 미커밋/미푸시이며 Stage 6.5/7과 새 모델은 구현하지 않았습니다.
+
+```powershell
+python -m src.audit_trajectory_window_similarity
+```
+
 # Stage 6.3. Inference-observable Context Reference & Abstention Audit
 
 같은 사용자의 prior trajectories와 현재 관측 prefix를 timestamp<현재 시각 조건으로 replay했습니다.
@@ -26,7 +45,7 @@ python -m src.audit_context_reference
 전체 **272개 테스트 PASS**(신규 32), audit **45.23초**, 보호 파일 **273개 checksum 유지**,
 causality 위반 **0**입니다. 기존 출력은 덮어쓰지 않습니다.
 [Stage 6.3 보고서](docs/stage6_context_reference_audit.md)에 정보 조건·availability·support·boundary·7개 그래프를 기록했습니다.
-Stage 6.3은 미커밋/미푸시이며 Stage 6.4·새 모델·production feature는 구현하지 않았습니다.
+Stage 6.3은 `8a7172b`로 게시했으며 로컬/원격 HEAD가 일치합니다.
 
 # Stage 6.2. Train-only Route Reference Coverage & Abstention Audit
 
@@ -768,7 +787,7 @@ docs/images/stage2/
 * Validation 기반 threshold 결정
 * Test 성능 평가
 * 모델, Scaler, 지표, 그래프 저장
-* 총 272개 테스트 통과
+* 총 307개 테스트 통과
 * GeoLife 다중 사용자 데이터 준비와 사용자 단위 split
 * 원본 point index lineage·fingerprint·CSV checksum 검증
 * 동일 split exact duplicate 제외와 cross-split leakage 실패
