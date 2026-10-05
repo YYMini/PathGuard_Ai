@@ -11,6 +11,23 @@ Stage 5 전체는 [PR #4](https://github.com/YYMini/PathGuard_Ai/pull/4)로 main
 최종 commit은 `f2e7eeed3f9cb4ffef9b635ca4205dda6954fab0`입니다.
 Stage 6 작업은 최신 main 기반 `feature/stage-6-route-context`에서 분리해 진행합니다.
 
+# Stage 6.2. Train-only Route Reference Coverage & Abstention Audit
+
+Train 정상 86,067 point만으로 BallTree spatial reference를 구성했습니다.
+Test 정상 coverage@100m는 **36.53%**, 사용자별로 **26.11~76.68%**입니다.
+전체 거리 score ROC-AUC/AP는 **0.39995/0.00612**, source-matched delta median은 **+39.20m**입니다.
+판정은 **B + D**이며, 원본 source가 covered라는 조건의 분리 신호는 audit용 oracle 결과입니다.
+Global 거리 feature를 모델에 바로 추가하지 않고, 실제 관측 가능한 context·coverage gate의 검증을 제안합니다.
+
+```powershell
+python -m src.audit_route_reference_coverage
+```
+
+전체 **240개 테스트 PASS**(신규 32), audit **10.49초**, Stage 5·6.1 보호 파일 **253개 checksum 유지**,
+leakage **0**입니다. 기존 출력이 있으면 덮어쓰기를 거부합니다.
+[Stage 6.2 보고서](docs/stage6_route_reference_coverage.md)에 coverage·paired delta·boundary·6개 그래프·한계를 기록했습니다.
+Stage 6.2는 미커밋/미푸시이며 모델·feature·threshold 변경 및 Stage 6.3 구현은 진행하지 않았습니다.
+
 # Stage 6.1. Route Representation & Synthetic Label Audit
 
 고정 데이터와 기존 점수만 감사했으며 모델 학습·추론·threshold/scaler 재계산은 하지 않았습니다.
@@ -676,7 +693,7 @@ docs/images/stage2/20081024020959/feature_summary.csv
 python -m unittest discover -s tests -v
 ```
 
-현재 전체 테스트 208개가 통과하며 다음 항목을 검증합니다.
+현재 전체 테스트 240개가 통과하며 다음 항목을 검증합니다.
 
 * Haversine 거리 계산
 * 동서남북 방향의 방위각 계산
@@ -734,7 +751,7 @@ docs/images/stage2/
 * Validation 기반 threshold 결정
 * Test 성능 평가
 * 모델, Scaler, 지표, 그래프 저장
-* 총 208개 테스트 통과
+* 총 240개 테스트 통과
 * GeoLife 다중 사용자 데이터 준비와 사용자 단위 split
 * 원본 point index lineage·fingerprint·CSV checksum 검증
 * 동일 split exact duplicate 제외와 cross-split leakage 실패
