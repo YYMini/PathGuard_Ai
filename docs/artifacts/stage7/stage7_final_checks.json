@@ -1,0 +1,661 @@
+{
+  "research_complete": true,
+  "protocol_freeze_before_cohort": true,
+  "one_successful_actual_final_evaluation": true,
+  "no_final_tuning": true,
+  "metric_producing_sources_unchanged": true,
+  "protocol_sha256": "7e8ee719f8b0529fc753366867fa71966fe9aa97cda56f2db7e8798da446a3c4",
+  "result_manifest_sha256": "6b3b22b5a7b65bc286663577d6c2ac0264eb32c0bfdd2caf9332a5459c20cfa7",
+  "protected_files": 578,
+  "changed_protected": 0,
+  "independent_verifier": {
+    "passed": true,
+    "independent_of_final_scorer": true,
+    "final_users": [
+      "020",
+      "021",
+      "022",
+      "023",
+      "024",
+      "025",
+      "026",
+      "027",
+      "028",
+      "029",
+      "030",
+      "031",
+      "032",
+      "033",
+      "034",
+      "035",
+      "036",
+      "037",
+      "038",
+      "039"
+    ],
+    "prior_user_overlap": 0,
+    "trajectory_count": 100,
+    "eligible_trajectories": 84,
+    "duplicate_exclusions": 0,
+    "lineage_errors": 0,
+    "verified_prediction_rows": 2558072,
+    "per_user_checks": 220,
+    "scalar_policy_event_checks": 1848,
+    "scalar_normal_alert_checks": 1848,
+    "model_hashes_verified": true,
+    "protocol_commit_and_hash_verified": true,
+    "thresholds_unchanged": true,
+    "frozen_G0_C60_verified": true,
+    "seed_aggregation_ddof": 1,
+    "protected_file_count": 578,
+    "protected_changed_files": 0,
+    "result_manifest_sha256": "6b3b22b5a7b65bc286663577d6c2ac0264eb32c0bfdd2caf9332a5459c20cfa7",
+    "chronology": [
+      "2026-10-05T18:26:35.989076+00:00",
+      "2026-10-05T18:29:10.228290+00:00",
+      "2026-10-05T18:30:30.868338+00:00",
+      "2026-10-05T18:34:54.784125+00:00"
+    ],
+    "metric_recomputation": "confusion counts, ROC-AUC/AP, user macro/std, anomaly-type, seed/group mean/std/min/max; scalar event/notification replay"
+  },
+  "test_count": 543,
+  "new_tests": 85,
+  "cohort": {
+    "requested_users": [
+      "020",
+      "021",
+      "022",
+      "023",
+      "024",
+      "025",
+      "026",
+      "027",
+      "028",
+      "029",
+      "030",
+      "031",
+      "032",
+      "033",
+      "034",
+      "035",
+      "036",
+      "037",
+      "038",
+      "039"
+    ],
+    "available_users": [
+      "020",
+      "021",
+      "022",
+      "023",
+      "024",
+      "025",
+      "026",
+      "027",
+      "028",
+      "029",
+      "030",
+      "031",
+      "032",
+      "033",
+      "034",
+      "035",
+      "036",
+      "037",
+      "038",
+      "039"
+    ],
+    "missing_users": [],
+    "selection": [
+      {
+        "user_id": "020",
+        "available_trajectory_count": 151,
+        "selected_filenames": [
+          "20110825143825.plt",
+          "20110826011926.plt",
+          "20110827061301.plt",
+          "20110827093443.plt",
+          "20110828043331.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "021",
+        "available_trajectory_count": 8,
+        "selected_filenames": [
+          "20070429083432.plt",
+          "20070429222711.plt",
+          "20070501010311.plt",
+          "20070502000924.plt",
+          "20070502001318.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "022",
+        "available_trajectory_count": 146,
+        "selected_filenames": [
+          "20090109071704.plt",
+          "20090110031933.plt",
+          "20090111061633.plt",
+          "20090112051804.plt",
+          "20090113094804.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "023",
+        "available_trajectory_count": 34,
+        "selected_filenames": [
+          "20090111061703.plt",
+          "20090111141703.plt",
+          "20090112042134.plt",
+          "20090113015319.plt",
+          "20090116063015.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "024",
+        "available_trajectory_count": 101,
+        "selected_filenames": [
+          "20081216010033.plt",
+          "20081217011026.plt",
+          "20081217172132.plt",
+          "20081218040703.plt",
+          "20081219034308.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "025",
+        "available_trajectory_count": 757,
+        "selected_filenames": [
+          "20081215000152.plt",
+          "20081215104440.plt",
+          "20081215113016.plt",
+          "20081216010001.plt",
+          "20081216010234.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "026",
+        "available_trajectory_count": 43,
+        "selected_filenames": [
+          "20090113113928.plt",
+          "20090114085333.plt",
+          "20090114115117.plt",
+          "20090115113933.plt",
+          "20090116092933.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "027",
+        "available_trajectory_count": 5,
+        "selected_filenames": [
+          "20090113100022.plt",
+          "20090113233903.plt",
+          "20090121204851.plt",
+          "20090123012034.plt",
+          "20090124013404.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "028",
+        "available_trajectory_count": 64,
+        "selected_filenames": [
+          "20090123044904.plt",
+          "20090124030633.plt",
+          "20090126012127.plt",
+          "20090131032403.plt",
+          "20090201082704.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "029",
+        "available_trajectory_count": 45,
+        "selected_filenames": [
+          "20090113054243.plt",
+          "20090113054251.plt",
+          "20090113225133.plt",
+          "20090114132903.plt",
+          "20090114230628.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "030",
+        "available_trajectory_count": 296,
+        "selected_filenames": [
+          "20090113023222.plt",
+          "20090113024137.plt",
+          "20090113122022.plt",
+          "20090113122105.plt",
+          "20090114004628.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "031",
+        "available_trajectory_count": 6,
+        "selected_filenames": [
+          "20090123053652.plt",
+          "20090123195828.plt",
+          "20090127021151.plt",
+          "20090127021307.plt",
+          "20090203091527.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "032",
+        "available_trajectory_count": 16,
+        "selected_filenames": [
+          "20081202105722.plt",
+          "20081202231826.plt",
+          "20081203232231.plt",
+          "20081203232906.plt",
+          "20081208022507.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "033",
+        "available_trajectory_count": 13,
+        "selected_filenames": [
+          "20081218004559.plt",
+          "20081222005905.plt",
+          "20081223001604.plt",
+          "20090107103706.plt",
+          "20090109001234.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "034",
+        "available_trajectory_count": 198,
+        "selected_filenames": [
+          "20090212030216.plt",
+          "20090212041655.plt",
+          "20090212073615.plt",
+          "20090214001641.plt",
+          "20090214020116.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "035",
+        "available_trajectory_count": 74,
+        "selected_filenames": [
+          "20090209104838.plt",
+          "20090209214256.plt",
+          "20090210214937.plt",
+          "20090211214635.plt",
+          "20090212214759.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "036",
+        "available_trajectory_count": 72,
+        "selected_filenames": [
+          "20090201024558.plt",
+          "20090201224828.plt",
+          "20090203053504.plt",
+          "20090204072334.plt",
+          "20090205015734.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "037",
+        "available_trajectory_count": 148,
+        "selected_filenames": [
+          "20090120074838.plt",
+          "20090120112235.plt",
+          "20090121000326.plt",
+          "20090121022956.plt",
+          "20090121032727.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "038",
+        "available_trajectory_count": 110,
+        "selected_filenames": [
+          "20090206121102.plt",
+          "20090207051906.plt",
+          "20090207061838.plt",
+          "20090207065611.plt",
+          "20090207105156.plt"
+        ],
+        "missing_user": false
+      },
+      {
+        "user_id": "039",
+        "available_trajectory_count": 227,
+        "selected_filenames": [
+          "20090211095938.plt",
+          "20090211234407.plt",
+          "20090212235659.plt",
+          "20090214022959.plt",
+          "20090215061356.plt"
+        ],
+        "missing_user": false
+      }
+    ],
+    "trajectory_count": 100,
+    "eligible_trajectory_count": 84,
+    "quality_eligible_trajectory_count": 84,
+    "excluded_quality_trajectories": 16,
+    "excluded_duplicate_count": 0,
+    "excluded_duplicate_rows": 0,
+    "cross_stage_duplicate_exclusions": 0,
+    "within_final_duplicate_exclusions": 0,
+    "normal_full_rows": 223843,
+    "normal_rows": 223289,
+    "synthetic_samples": 336,
+    "synthetic_full_rows": 895372,
+    "full_labelled_anomaly_rows": 9283,
+    "anomaly_labelled_rows": 9263,
+    "route_event_count": 84,
+    "per_user": [
+      {
+        "user_id": "020",
+        "input_trajectories": 5,
+        "eligible_trajectories": 4,
+        "normal_rows": 5721,
+        "anomaly_rows": 503
+      },
+      {
+        "user_id": "021",
+        "input_trajectories": 5,
+        "eligible_trajectories": 0,
+        "normal_rows": 0,
+        "anomaly_rows": 0
+      },
+      {
+        "user_id": "022",
+        "input_trajectories": 5,
+        "eligible_trajectories": 5,
+        "normal_rows": 21140,
+        "anomaly_rows": 548
+      },
+      {
+        "user_id": "023",
+        "input_trajectories": 5,
+        "eligible_trajectories": 4,
+        "normal_rows": 21588,
+        "anomaly_rows": 372
+      },
+      {
+        "user_id": "024",
+        "input_trajectories": 5,
+        "eligible_trajectories": 3,
+        "normal_rows": 4472,
+        "anomaly_rows": 255
+      },
+      {
+        "user_id": "025",
+        "input_trajectories": 5,
+        "eligible_trajectories": 3,
+        "normal_rows": 1347,
+        "anomaly_rows": 344
+      },
+      {
+        "user_id": "026",
+        "input_trajectories": 5,
+        "eligible_trajectories": 5,
+        "normal_rows": 3579,
+        "anomaly_rows": 438
+      },
+      {
+        "user_id": "027",
+        "input_trajectories": 5,
+        "eligible_trajectories": 5,
+        "normal_rows": 15472,
+        "anomaly_rows": 505
+      },
+      {
+        "user_id": "028",
+        "input_trajectories": 5,
+        "eligible_trajectories": 5,
+        "normal_rows": 26447,
+        "anomaly_rows": 732
+      },
+      {
+        "user_id": "029",
+        "input_trajectories": 5,
+        "eligible_trajectories": 4,
+        "normal_rows": 6464,
+        "anomaly_rows": 590
+      },
+      {
+        "user_id": "030",
+        "input_trajectories": 5,
+        "eligible_trajectories": 4,
+        "normal_rows": 4036,
+        "anomaly_rows": 498
+      },
+      {
+        "user_id": "031",
+        "input_trajectories": 5,
+        "eligible_trajectories": 4,
+        "normal_rows": 19116,
+        "anomaly_rows": 508
+      },
+      {
+        "user_id": "032",
+        "input_trajectories": 5,
+        "eligible_trajectories": 4,
+        "normal_rows": 7098,
+        "anomaly_rows": 337
+      },
+      {
+        "user_id": "033",
+        "input_trajectories": 5,
+        "eligible_trajectories": 5,
+        "normal_rows": 13969,
+        "anomaly_rows": 485
+      },
+      {
+        "user_id": "034",
+        "input_trajectories": 5,
+        "eligible_trajectories": 5,
+        "normal_rows": 3492,
+        "anomaly_rows": 504
+      },
+      {
+        "user_id": "035",
+        "input_trajectories": 5,
+        "eligible_trajectories": 5,
+        "normal_rows": 6498,
+        "anomaly_rows": 402
+      },
+      {
+        "user_id": "036",
+        "input_trajectories": 5,
+        "eligible_trajectories": 5,
+        "normal_rows": 38721,
+        "anomaly_rows": 794
+      },
+      {
+        "user_id": "037",
+        "input_trajectories": 5,
+        "eligible_trajectories": 5,
+        "normal_rows": 8274,
+        "anomaly_rows": 544
+      },
+      {
+        "user_id": "038",
+        "input_trajectories": 5,
+        "eligible_trajectories": 4,
+        "normal_rows": 9172,
+        "anomaly_rows": 457
+      },
+      {
+        "user_id": "039",
+        "input_trajectories": 5,
+        "eligible_trajectories": 5,
+        "normal_rows": 6683,
+        "anomaly_rows": 447
+      }
+    ],
+    "prior_user_overlap": 0,
+    "cross_stage_trajectory_duplicate_after_exclusions": 0,
+    "within_final_duplicate_after_exclusions": 0,
+    "lineage_errors": 0,
+    "nonfinite_feature_count": 0,
+    "protocol_sha256": "7e8ee719f8b0529fc753366867fa71966fe9aa97cda56f2db7e8798da446a3c4",
+    "created_at": "2026-10-05T18:29:10.228290+00:00",
+    "duplicate_exclusions": [],
+    "no_replacement": true,
+    "nan_inf_count": 0,
+    "quality_filter": "Stage5 unchanged; source quality, not generated-effect quality"
+  },
+  "model_hashes": {
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/statistical_rule/rule_parameters.json": "b712b392ce5c8cc3fd7e68f58d1c3098e461f3c3eea6924792458cca6369a1e7",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/statistical_rule/run_config.json": "b831ac662f71cd1a83be957040abfc8a82316babe87301bfc45ba81512959116",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_7/model.joblib": "304443cb8548c6caa171d26216ad05a01acb56347a8e30fbf0d6ebd0999c93f0",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_7/run_config.json": "1b3d3561fcf6e3dbad9728f7202e0390bb753bf1d7a7eda094db845f8b4c1742",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_7/scaler.joblib": "050b2eb529e346816c239804ad2fb38b1750987b98c045c745e035091f780572",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_21/model.joblib": "41a6e1d8728c2f5476124297f68e3aa1e2cbe72081c9f3879a0de8ec04d951c6",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_21/run_config.json": "07dc83e555933688f668f25f91964f6d064abfbaa01687a1677c53e97e7f4814",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_21/scaler.joblib": "050b2eb529e346816c239804ad2fb38b1750987b98c045c745e035091f780572",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_42/model.joblib": "0e923a5d22cb5e2658b80f7c71e903bafbe1b1f6793254150bd4e87916058a9d",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_42/run_config.json": "3071e885dd1aeaa4674318cbf28eaa3bbfdc81af3bd3f0b1e84ad46128c37827",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_42/scaler.joblib": "050b2eb529e346816c239804ad2fb38b1750987b98c045c745e035091f780572",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_100/model.joblib": "1bb155dada19af49f6d7a9fa39c424e365b3c311012ebe89d14d7ef7f1d042a4",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_100/run_config.json": "9d3cf4a0dc13080cb1f549d75215ac8c2f7753b24b2616aa1ebf2a6e60ca9606",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_100/scaler.joblib": "050b2eb529e346816c239804ad2fb38b1750987b98c045c745e035091f780572",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_2026/model.joblib": "5fffb525f7dd6ae22c50b0916399843e30589d775fbf5d70e3158a3b3367c70b",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_2026/run_config.json": "a0b93938a1e8fd9c2b5ef2057f81d5baeb6c4af42b91c37c89ebdb76d5cb4e7f",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/baselines/isolation_forest/seed_2026/scaler.joblib": "050b2eb529e346816c239804ad2fb38b1750987b98c045c745e035091f780572",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_7/model.pt": "f627b51c8cc091af806978fa1d101c1b7e70b7b0bb2867de5ef99877f21df33b",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_7/training_config.json": "e349cd0181ab9f6611996efef9e647fd720a4564d2328ce926fc05f4d9aa5e31",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_7/scaler.joblib": "050b2eb529e346816c239804ad2fb38b1750987b98c045c745e035091f780572",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_21/model.pt": "4dc94f07dc745ea1d1b4772c8aa345dbc5a80c7a2468a1204b7bc3eff7bf87f4",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_21/training_config.json": "27dda09b17fa7b5511948b99c73ad50d5ec8608df0ceba79b67001bb2cf7b1ae",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_21/scaler.joblib": "050b2eb529e346816c239804ad2fb38b1750987b98c045c745e035091f780572",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_42/model.pt": "4c998941932c0d8f8aa33f59c2fa929cc8e15a0cfda5a473aded1df653e1e960",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_42/training_config.json": "2a142105518c3b8daa77ec0a1a9d4b90e64964c939198f60d1f04ca3cdf79794",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_42/scaler.joblib": "050b2eb529e346816c239804ad2fb38b1750987b98c045c745e035091f780572",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_100/model.pt": "1360bbde22e9982cce9327d5ed07af762ba530b44e051e79a0edcd0b219b1f18",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_100/training_config.json": "91c02e81d8c26a45122cfb1ba698d6147e1b7cc50363b3e1a40aa8bb0b403abd",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_100/scaler.joblib": "050b2eb529e346816c239804ad2fb38b1750987b98c045c745e035091f780572",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_2026/model.pt": "67cd6ddf5668bb8d65af943eb53c421532faadb0dc0ab5d82403ac4a04b553da",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_2026/training_config.json": "a6a45318bc68e52d3d14c10ad4759c82aebfb16425927f9f553f0d3624d9b25d",
+    "models/stage5/geolife_u000_019_first5_seed42_dedup/seed_2026/scaler.joblib": "050b2eb529e346816c239804ad2fb38b1750987b98c045c745e035091f780572"
+  },
+  "generator_hashes": {
+    "src/synthetic_anomalies.py": "b525fd35a0e256b9fd160b8a6dbae22eedff5bc6c1ab7365ab69a020a7f060c2",
+    "src/prepare_multiuser_dataset.py": "b305327993f483b79873fe2d6f650ee87d8be7066bc5605bd4ffb22fcba0c100",
+    "src/feature_engineering.py": "c6c09e62854bd3f05f5587ad53e997e7147cff4f7857467c5f3f39f88e713745",
+    "src/data_quality.py": "35c53492e37b5a9ee45b5939515eb2ca18c7a03972884af905ce3761d92680bb",
+    "src/load_multiuser_geolife.py": "c95592e8c8b2fd8009e3e9b28922148a1302be81b6c4a3e8aa7f106a4ed9ab80",
+    "src/load_geolife.py": "ebd0fc9317f5b8452f10b97ead1168b03ede6fd5dd225542b26671664622b100",
+    "src/prepare_dataset.py": "d3d694d593fdd373c51aa4ffaa0ca700e17b9903246bd87a6e9e282f38333fca"
+  },
+  "metric_producing_source_hashes": {
+    "src/stage7_protocol.py": "0905681598a787d5a355d49e520762b91f0d422f78b549c6ec02d12a03ae884e",
+    "src/prepare_final_cohort.py": "18baef2ecf436a0f91637d8872ef523a326ac8bfeeaaa767696ddaa83a6eec37",
+    "src/evaluate_final_validation.py": "e617d40daf1b8da8e2b72aa419941f1b29e07cdfb2d883f5d0137c27d051d01a"
+  },
+  "documentation_sha256": {
+    "README.md": "65c3813dd2ae9604e59e104731220d30ed5b43a15b6fff64cacafb7e8c5b98f7",
+    "docs/stage7_final_validation.md": "c373ad2aad2979e6117b0e61cef3281a209da69c39e5641e1796ba749b16eec1",
+    "docs/reproducibility.md": "dda911650a7afcc613880bcab75f11673997b321b4adc6c55e9582b6693cfe34",
+    "docs/final_research_summary.md": "c745a8f62e3f22bc15b932e42b4ff4acd5f278cff241d658bb1975b8620d0fef",
+    "docs/portfolio_summary_ko.md": "ad843975bfbb7d00673359f3e89e9b4ef75ea4c88cea52253c3f3e64716b0b1c"
+  },
+  "figure_manifest": {
+    "final_results_manifest_sha256": "6b3b22b5a7b65bc286663577d6c2ac0264eb32c0bfdd2caf9332a5459c20cfa7",
+    "figure_file_hashes": {
+      "outputs/figures/stage7/final/final_detector_comparison.png": "401cacbcd32761c33b9d191b5f9230de1c5c90995fe07fa0e18238c3ea74a88a",
+      "outputs/figures/stage7/final/final_per_user_f1.png": "1bb4cf32f8cf53089c0077b437a8a7a2e6631c7440f70310222b3b0033985fdc",
+      "outputs/figures/stage7/final/final_anomaly_type_recall.png": "0f2ec3cfe3c45c62adcf88215e346dee67974650eb93f1241db4287ddf3f1323",
+      "outputs/figures/stage7/final/stage5_vs_stage7_generalization.png": "cf64d94d94f7323d27e4bc8c6710ab2dbe83f036ec59ef1995e5cf9803e15e33",
+      "outputs/figures/stage7/final/final_event_detection.png": "7a49bd73c9b61846e679d016f96e771d67beff124bbbe11d8a6ce4745c95074e",
+      "outputs/figures/stage7/final/final_false_alert_burden.png": "c695ff7586f16a199cd07a12173c5f242bfd1cf6fb8912c48f2fea98a4db44de",
+      "outputs/figures/stage7/final/final_raw_vs_locked_alert.png": "3aeb4daf54213463a40f1c5d9f4bbd66d21b69c30ba96e1dfdbc9b5eccfc449a"
+    },
+    "portfolio_file_hashes": {
+      "docs/images/stage7/final_detector_comparison.png": "401cacbcd32761c33b9d191b5f9230de1c5c90995fe07fa0e18238c3ea74a88a",
+      "docs/images/stage7/final_per_user_f1.png": "1bb4cf32f8cf53089c0077b437a8a7a2e6631c7440f70310222b3b0033985fdc",
+      "docs/images/stage7/final_anomaly_type_recall.png": "0f2ec3cfe3c45c62adcf88215e346dee67974650eb93f1241db4287ddf3f1323",
+      "docs/images/stage7/stage5_vs_stage7_generalization.png": "cf64d94d94f7323d27e4bc8c6710ab2dbe83f036ec59ef1995e5cf9803e15e33",
+      "docs/images/stage7/final_event_detection.png": "7a49bd73c9b61846e679d016f96e771d67beff124bbbe11d8a6ce4745c95074e",
+      "docs/images/stage7/final_false_alert_burden.png": "c695ff7586f16a199cd07a12173c5f242bfd1cf6fb8912c48f2fea98a4db44de",
+      "docs/images/stage7/final_raw_vs_locked_alert.png": "3aeb4daf54213463a40f1c5d9f4bbd66d21b69c30ba96e1dfdbc9b5eccfc449a"
+    },
+    "figure_source_hash": "c42614c5900d215b4608847f2ef98ab6879a17400eb56d684cfc35dd787675f9",
+    "metric_recomputation": false,
+    "figure_count": 7,
+    "source_table_hashes": {
+      "final_point_metrics": "7d6b97c87c54f3c06bf2e2fa1fd82d094c24be3ae8d42059d0ff5d28ae96b1d5",
+      "final_user_metrics": "ddfa35c4eece509ffcb23b8c6329e939403beec878e57e64756fdf3f91592a14",
+      "final_anomaly_type_metrics": "fb95cd4a36b7a73ed09b3f8a67cbbf16e4f795eb71e6a7ec402578468b2388c1",
+      "stage5_vs_stage7": "6fecbffe15adffae3c02dc5f593027451598a0ca772dd47536cb2b170def28e2",
+      "final_event_summary": "05bab21d8e99e51b062dcfd407cbcb3229649b424cecd3cdc4911980e06ceabc",
+      "final_alert_summary": "2109177ac132f30cd141d3634a23f3c90a75afbbe6e4baf627f1f5797cc99292"
+    }
+  },
+  "CLI_smokes": {
+    "public_ae42": {
+      "detector": "autoencoder",
+      "seed": 42,
+      "model_sha256": "4c998941932c0d8f8aa33f59c2fa929cc8e15a0cfda5a473aded1df653e1e960",
+      "scaler_sha256": "050b2eb529e346816c239804ad2fb38b1750987b98c045c745e035091f780572",
+      "threshold": 0.14424675703048706,
+      "alert_policy": "G0_C60",
+      "canonical_seed_reason": "42 is the existing Stage4/5 canonical seed, not selected on Final results",
+      "input_sha256": "d959a957845b2145d1740bfe04eafc8758f3b504108ed8fe143174431573242c",
+      "output_sha256": "135c5d3413a912334b4b1397d0279df44cb53956aab2b169790fc6b32752fcfc",
+      "rows": 200,
+      "quality_valid_rows": 199,
+      "notification_count": 1,
+      "training": false,
+      "threshold_recalculation": false,
+      "map_first_trajectory_only": true
+    },
+    "public_if42": {
+      "detector": "isolation_forest",
+      "seed": 42,
+      "model_sha256": "0e923a5d22cb5e2658b80f7c71e903bafbe1b1f6793254150bd4e87916058a9d",
+      "scaler_sha256": "050b2eb529e346816c239804ad2fb38b1750987b98c045c745e035091f780572",
+      "threshold": 0.5185322801154019,
+      "alert_policy": "G0_C60",
+      "canonical_seed_reason": "42 is the existing Stage4/5 canonical seed, not selected on Final results",
+      "input_sha256": "d959a957845b2145d1740bfe04eafc8758f3b504108ed8fe143174431573242c",
+      "output_sha256": "5640af2dff70d79d41e74c3c0d9eb298c6a06d2303d39a3d88d89a525286f91b",
+      "rows": 200,
+      "quality_valid_rows": 199,
+      "notification_count": 1,
+      "training": false,
+      "threshold_recalculation": false,
+      "map_first_trajectory_only": false
+    },
+    "public_rule": {
+      "detector": "statistical_rule",
+      "seed": null,
+      "model_sha256": "b712b392ce5c8cc3fd7e68f58d1c3098e461f3c3eea6924792458cca6369a1e7",
+      "scaler_sha256": null,
+      "threshold": 13.022437059583535,
+      "alert_policy": "G0_C60",
+      "canonical_seed_reason": "42 is the existing Stage4/5 canonical seed, not selected on Final results",
+      "input_sha256": "d959a957845b2145d1740bfe04eafc8758f3b504108ed8fe143174431573242c",
+      "output_sha256": "c833e58da09c36612aef11bdad578bf63f87b94ef467954f0acc332485f3a230",
+      "rows": 200,
+      "quality_valid_rows": 199,
+      "notification_count": 1,
+      "training": false,
+      "threshold_recalculation": false,
+      "map_first_trajectory_only": false
+    }
+  },
+  "tests_log": "outputs/metrics/stage7_public_example_tests.log"
+}

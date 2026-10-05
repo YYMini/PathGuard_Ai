@@ -1,0 +1,32 @@
+{
+  "final_results_manifest_sha256": "6b3b22b5a7b65bc286663577d6c2ac0264eb32c0bfdd2caf9332a5459c20cfa7",
+  "figure_file_hashes": {
+    "outputs/figures/stage7/final/final_detector_comparison.png": "401cacbcd32761c33b9d191b5f9230de1c5c90995fe07fa0e18238c3ea74a88a",
+    "outputs/figures/stage7/final/final_per_user_f1.png": "1bb4cf32f8cf53089c0077b437a8a7a2e6631c7440f70310222b3b0033985fdc",
+    "outputs/figures/stage7/final/final_anomaly_type_recall.png": "0f2ec3cfe3c45c62adcf88215e346dee67974650eb93f1241db4287ddf3f1323",
+    "outputs/figures/stage7/final/stage5_vs_stage7_generalization.png": "cf64d94d94f7323d27e4bc8c6710ab2dbe83f036ec59ef1995e5cf9803e15e33",
+    "outputs/figures/stage7/final/final_event_detection.png": "7a49bd73c9b61846e679d016f96e771d67beff124bbbe11d8a6ce4745c95074e",
+    "outputs/figures/stage7/final/final_false_alert_burden.png": "c695ff7586f16a199cd07a12173c5f242bfd1cf6fb8912c48f2fea98a4db44de",
+    "outputs/figures/stage7/final/final_raw_vs_locked_alert.png": "3aeb4daf54213463a40f1c5d9f4bbd66d21b69c30ba96e1dfdbc9b5eccfc449a"
+  },
+  "portfolio_file_hashes": {
+    "docs/images/stage7/final_detector_comparison.png": "401cacbcd32761c33b9d191b5f9230de1c5c90995fe07fa0e18238c3ea74a88a",
+    "docs/images/stage7/final_per_user_f1.png": "1bb4cf32f8cf53089c0077b437a8a7a2e6631c7440f70310222b3b0033985fdc",
+    "docs/images/stage7/final_anomaly_type_recall.png": "0f2ec3cfe3c45c62adcf88215e346dee67974650eb93f1241db4287ddf3f1323",
+    "docs/images/stage7/stage5_vs_stage7_generalization.png": "cf64d94d94f7323d27e4bc8c6710ab2dbe83f036ec59ef1995e5cf9803e15e33",
+    "docs/images/stage7/final_event_detection.png": "7a49bd73c9b61846e679d016f96e771d67beff124bbbe11d8a6ce4745c95074e",
+    "docs/images/stage7/final_false_alert_burden.png": "c695ff7586f16a199cd07a12173c5f242bfd1cf6fb8912c48f2fea98a4db44de",
+    "docs/images/stage7/final_raw_vs_locked_alert.png": "3aeb4daf54213463a40f1c5d9f4bbd66d21b69c30ba96e1dfdbc9b5eccfc449a"
+  },
+  "figure_source_hash": "c42614c5900d215b4608847f2ef98ab6879a17400eb56d684cfc35dd787675f9",
+  "metric_recomputation": false,
+  "figure_count": 7,
+  "source_table_hashes": {
+    "final_point_metrics": "7d6b97c87c54f3c06bf2e2fa1fd82d094c24be3ae8d42059d0ff5d28ae96b1d5",
+    "final_user_metrics": "ddfa35c4eece509ffcb23b8c6329e939403beec878e57e64756fdf3f91592a14",
+    "final_anomaly_type_metrics": "fb95cd4a36b7a73ed09b3f8a67cbbf16e4f795eb71e6a7ec402578468b2388c1",
+    "stage5_vs_stage7": "6fecbffe15adffae3c02dc5f593027451598a0ca772dd47536cb2b170def28e2",
+    "final_event_summary": "05bab21d8e99e51b062dcfd407cbcb3229649b424cecd3cdc4911980e06ceabc",
+    "final_alert_summary": "2109177ac132f30cd141d3634a23f3c90a75afbbe6e4baf627f1f5797cc99292"
+  }
+}

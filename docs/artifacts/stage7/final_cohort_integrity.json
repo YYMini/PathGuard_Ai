@@ -1,0 +1,457 @@
+{
+  "requested_users": [
+    "020",
+    "021",
+    "022",
+    "023",
+    "024",
+    "025",
+    "026",
+    "027",
+    "028",
+    "029",
+    "030",
+    "031",
+    "032",
+    "033",
+    "034",
+    "035",
+    "036",
+    "037",
+    "038",
+    "039"
+  ],
+  "available_users": [
+    "020",
+    "021",
+    "022",
+    "023",
+    "024",
+    "025",
+    "026",
+    "027",
+    "028",
+    "029",
+    "030",
+    "031",
+    "032",
+    "033",
+    "034",
+    "035",
+    "036",
+    "037",
+    "038",
+    "039"
+  ],
+  "missing_users": [],
+  "selection": [
+    {
+      "user_id": "020",
+      "available_trajectory_count": 151,
+      "selected_filenames": [
+        "20110825143825.plt",
+        "20110826011926.plt",
+        "20110827061301.plt",
+        "20110827093443.plt",
+        "20110828043331.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "021",
+      "available_trajectory_count": 8,
+      "selected_filenames": [
+        "20070429083432.plt",
+        "20070429222711.plt",
+        "20070501010311.plt",
+        "20070502000924.plt",
+        "20070502001318.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "022",
+      "available_trajectory_count": 146,
+      "selected_filenames": [
+        "20090109071704.plt",
+        "20090110031933.plt",
+        "20090111061633.plt",
+        "20090112051804.plt",
+        "20090113094804.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "023",
+      "available_trajectory_count": 34,
+      "selected_filenames": [
+        "20090111061703.plt",
+        "20090111141703.plt",
+        "20090112042134.plt",
+        "20090113015319.plt",
+        "20090116063015.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "024",
+      "available_trajectory_count": 101,
+      "selected_filenames": [
+        "20081216010033.plt",
+        "20081217011026.plt",
+        "20081217172132.plt",
+        "20081218040703.plt",
+        "20081219034308.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "025",
+      "available_trajectory_count": 757,
+      "selected_filenames": [
+        "20081215000152.plt",
+        "20081215104440.plt",
+        "20081215113016.plt",
+        "20081216010001.plt",
+        "20081216010234.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "026",
+      "available_trajectory_count": 43,
+      "selected_filenames": [
+        "20090113113928.plt",
+        "20090114085333.plt",
+        "20090114115117.plt",
+        "20090115113933.plt",
+        "20090116092933.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "027",
+      "available_trajectory_count": 5,
+      "selected_filenames": [
+        "20090113100022.plt",
+        "20090113233903.plt",
+        "20090121204851.plt",
+        "20090123012034.plt",
+        "20090124013404.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "028",
+      "available_trajectory_count": 64,
+      "selected_filenames": [
+        "20090123044904.plt",
+        "20090124030633.plt",
+        "20090126012127.plt",
+        "20090131032403.plt",
+        "20090201082704.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "029",
+      "available_trajectory_count": 45,
+      "selected_filenames": [
+        "20090113054243.plt",
+        "20090113054251.plt",
+        "20090113225133.plt",
+        "20090114132903.plt",
+        "20090114230628.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "030",
+      "available_trajectory_count": 296,
+      "selected_filenames": [
+        "20090113023222.plt",
+        "20090113024137.plt",
+        "20090113122022.plt",
+        "20090113122105.plt",
+        "20090114004628.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "031",
+      "available_trajectory_count": 6,
+      "selected_filenames": [
+        "20090123053652.plt",
+        "20090123195828.plt",
+        "20090127021151.plt",
+        "20090127021307.plt",
+        "20090203091527.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "032",
+      "available_trajectory_count": 16,
+      "selected_filenames": [
+        "20081202105722.plt",
+        "20081202231826.plt",
+        "20081203232231.plt",
+        "20081203232906.plt",
+        "20081208022507.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "033",
+      "available_trajectory_count": 13,
+      "selected_filenames": [
+        "20081218004559.plt",
+        "20081222005905.plt",
+        "20081223001604.plt",
+        "20090107103706.plt",
+        "20090109001234.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "034",
+      "available_trajectory_count": 198,
+      "selected_filenames": [
+        "20090212030216.plt",
+        "20090212041655.plt",
+        "20090212073615.plt",
+        "20090214001641.plt",
+        "20090214020116.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "035",
+      "available_trajectory_count": 74,
+      "selected_filenames": [
+        "20090209104838.plt",
+        "20090209214256.plt",
+        "20090210214937.plt",
+        "20090211214635.plt",
+        "20090212214759.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "036",
+      "available_trajectory_count": 72,
+      "selected_filenames": [
+        "20090201024558.plt",
+        "20090201224828.plt",
+        "20090203053504.plt",
+        "20090204072334.plt",
+        "20090205015734.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "037",
+      "available_trajectory_count": 148,
+      "selected_filenames": [
+        "20090120074838.plt",
+        "20090120112235.plt",
+        "20090121000326.plt",
+        "20090121022956.plt",
+        "20090121032727.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "038",
+      "available_trajectory_count": 110,
+      "selected_filenames": [
+        "20090206121102.plt",
+        "20090207051906.plt",
+        "20090207061838.plt",
+        "20090207065611.plt",
+        "20090207105156.plt"
+      ],
+      "missing_user": false
+    },
+    {
+      "user_id": "039",
+      "available_trajectory_count": 227,
+      "selected_filenames": [
+        "20090211095938.plt",
+        "20090211234407.plt",
+        "20090212235659.plt",
+        "20090214022959.plt",
+        "20090215061356.plt"
+      ],
+      "missing_user": false
+    }
+  ],
+  "trajectory_count": 100,
+  "eligible_trajectory_count": 84,
+  "quality_eligible_trajectory_count": 84,
+  "excluded_quality_trajectories": 16,
+  "excluded_duplicate_count": 0,
+  "excluded_duplicate_rows": 0,
+  "cross_stage_duplicate_exclusions": 0,
+  "within_final_duplicate_exclusions": 0,
+  "normal_full_rows": 223843,
+  "normal_rows": 223289,
+  "synthetic_samples": 336,
+  "synthetic_full_rows": 895372,
+  "full_labelled_anomaly_rows": 9283,
+  "anomaly_labelled_rows": 9263,
+  "route_event_count": 84,
+  "per_user": [
+    {
+      "user_id": "020",
+      "input_trajectories": 5,
+      "eligible_trajectories": 4,
+      "normal_rows": 5721,
+      "anomaly_rows": 503
+    },
+    {
+      "user_id": "021",
+      "input_trajectories": 5,
+      "eligible_trajectories": 0,
+      "normal_rows": 0,
+      "anomaly_rows": 0
+    },
+    {
+      "user_id": "022",
+      "input_trajectories": 5,
+      "eligible_trajectories": 5,
+      "normal_rows": 21140,
+      "anomaly_rows": 548
+    },
+    {
+      "user_id": "023",
+      "input_trajectories": 5,
+      "eligible_trajectories": 4,
+      "normal_rows": 21588,
+      "anomaly_rows": 372
+    },
+    {
+      "user_id": "024",
+      "input_trajectories": 5,
+      "eligible_trajectories": 3,
+      "normal_rows": 4472,
+      "anomaly_rows": 255
+    },
+    {
+      "user_id": "025",
+      "input_trajectories": 5,
+      "eligible_trajectories": 3,
+      "normal_rows": 1347,
+      "anomaly_rows": 344
+    },
+    {
+      "user_id": "026",
+      "input_trajectories": 5,
+      "eligible_trajectories": 5,
+      "normal_rows": 3579,
+      "anomaly_rows": 438
+    },
+    {
+      "user_id": "027",
+      "input_trajectories": 5,
+      "eligible_trajectories": 5,
+      "normal_rows": 15472,
+      "anomaly_rows": 505
+    },
+    {
+      "user_id": "028",
+      "input_trajectories": 5,
+      "eligible_trajectories": 5,
+      "normal_rows": 26447,
+      "anomaly_rows": 732
+    },
+    {
+      "user_id": "029",
+      "input_trajectories": 5,
+      "eligible_trajectories": 4,
+      "normal_rows": 6464,
+      "anomaly_rows": 590
+    },
+    {
+      "user_id": "030",
+      "input_trajectories": 5,
+      "eligible_trajectories": 4,
+      "normal_rows": 4036,
+      "anomaly_rows": 498
+    },
+    {
+      "user_id": "031",
+      "input_trajectories": 5,
+      "eligible_trajectories": 4,
+      "normal_rows": 19116,
+      "anomaly_rows": 508
+    },
+    {
+      "user_id": "032",
+      "input_trajectories": 5,
+      "eligible_trajectories": 4,
+      "normal_rows": 7098,
+      "anomaly_rows": 337
+    },
+    {
+      "user_id": "033",
+      "input_trajectories": 5,
+      "eligible_trajectories": 5,
+      "normal_rows": 13969,
+      "anomaly_rows": 485
+    },
+    {
+      "user_id": "034",
+      "input_trajectories": 5,
+      "eligible_trajectories": 5,
+      "normal_rows": 3492,
+      "anomaly_rows": 504
+    },
+    {
+      "user_id": "035",
+      "input_trajectories": 5,
+      "eligible_trajectories": 5,
+      "normal_rows": 6498,
+      "anomaly_rows": 402
+    },
+    {
+      "user_id": "036",
+      "input_trajectories": 5,
+      "eligible_trajectories": 5,
+      "normal_rows": 38721,
+      "anomaly_rows": 794
+    },
+    {
+      "user_id": "037",
+      "input_trajectories": 5,
+      "eligible_trajectories": 5,
+      "normal_rows": 8274,
+      "anomaly_rows": 544
+    },
+    {
+      "user_id": "038",
+      "input_trajectories": 5,
+      "eligible_trajectories": 4,
+      "normal_rows": 9172,
+      "anomaly_rows": 457
+    },
+    {
+      "user_id": "039",
+      "input_trajectories": 5,
+      "eligible_trajectories": 5,
+      "normal_rows": 6683,
+      "anomaly_rows": 447
+    }
+  ],
+  "prior_user_overlap": 0,
+  "cross_stage_trajectory_duplicate_after_exclusions": 0,
+  "within_final_duplicate_after_exclusions": 0,
+  "lineage_errors": 0,
+  "nonfinite_feature_count": 0,
+  "protocol_sha256": "7e8ee719f8b0529fc753366867fa71966fe9aa97cda56f2db7e8798da446a3c4",
+  "created_at": "2026-10-05T18:29:10.228290+00:00",
+  "duplicate_exclusions": [],
+  "no_replacement": true,
+  "nan_inf_count": 0,
+  "quality_filter": "Stage5 unchanged; source quality, not generated-effect quality"
+}
