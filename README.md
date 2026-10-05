@@ -7,9 +7,139 @@
 - Stage 5.3: Multi-seed Stability
 - Stage 5.4: Baseline Comparison
 
-Stage 5 전체는 `feature/stage-5-multiuser-generalization`에서 단계별 커밋으로 진행합니다.
-완료 후 PR `Stage 5: Multi-user generalization` 하나를 main에 squash merge해 최종 커밋 하나를 남깁니다.
-현재는 PR 생성이나 main merge를 진행하지 않습니다.
+Stage 5 전체는 [PR #4](https://github.com/YYMini/PathGuard_Ai/pull/4)로 main에 squash merge했습니다.
+최종 commit은 `f2e7eeed3f9cb4ffef9b635ca4205dda6954fab0`입니다.
+Stage 6 작업은 최신 main 기반 `feature/stage-6-route-context`에서 분리해 진행합니다.
+
+# Stage 6.7. Validation-only Alert Aggregation & Temporal Policy Audit
+
+7 gates × 3 cooldown의 21개 후보를 사전 고정하고 Validation의 정상19,448행/12events에서만 선택했습니다.
+세family 모두 **G0_C60(RAW gate +60s cooldown)**을 lock한 뒤 Test에는 RAW/LOCKED만 적용했습니다.
+Test Notification EDR는 Rule **89.47→73.68%**, IF **92.63→82.11%**, AE **91.58→75.79%**입니다.
+오경보 notification 감소는 family 평균 수 기준 **49.02/39.52/57.27%**지만 정상 any-notification은 **100%**가 남았습니다.
+Gate/point지표는 그대로이고 cooldown이 실제 event를 놓치거나 늦추어 **AF + AH(탐지 retention) + AI**로 판단했습니다.
+
+전체 **458개 테스트 PASS**(신규68), 보호파일 **524개 변경0**, Validation74.42s/Test33.78s입니다.
+독립verifier가231Validation/22Testpolicy-seed및2,772/418event판단을재계산했습니다.
+[57개항목상세보고서](docs/stage6_alert_aggregation_audit.md)에eligibility/lock/사용자·seed/알림감소·탐지희생을기록했습니다.
+기존11개Validation/Testprediction을재사용했으며training/inference/threshold변경없음입니다.
+Candidatefamily는Stage6.6Test관찰후설계해현재Test를untouchedfinalbenchmark로주장하지않습니다.
+Stage6.7은미커밋/미푸시,PR/mainmerge없음.Stage6.8은제안만했습니다.
+
+```powershell
+python -m src.audit_alert_aggregation --phase validation-select
+python -m src.audit_alert_aggregation --phase test-evaluate --locked-policy outputs/metrics/stage6/alert_aggregation/locked_alert_policies.json
+```
+
+# Stage 6.6. Segment / Event Evaluation Protocol Audit
+
+기존 11개 detector prediction으로 19개 route event와 정상 46,299행의 alert burden을 평가했습니다.
+EDR는 Rule **89.47%**, IF **92.63 ± 2.88%p**, AE **91.58 ± 6.00%p**입니다.
+Early@25%는 **68.42/80.00/74.74%**, event coverage median은 **15.00/8.61/19.72%**입니다.
+Detected-only median delay는 모든 run에서 **1 point / 3 seconds**이지만 늦은 tail도 존재합니다.
+정상 1,000행당 FP는 **66.18/70.64/72.60**, 정상 trajectory any-alert는 모든 run에서 **100%**입니다.
+따라서 판정은 **Y + Z + AC**, 일부 late-tail의 X입니다. 높은 EDR와 낮은 coverage/정상 부담을 함께 보고합니다.
+
+전체 **390개 테스트 PASS**(신규 43), audit **16.04초**, 보호 **495개 변경 0**입니다.
+별도 verifier가 209개 이벤트·509,289개 정상 예측·13,384개 false alert run을 재계산했습니다.
+Full label 379행과 평가 예측 378행의 분모 차이, quality holes와 long-gap 노출 처리를 명시했습니다.
+[42개 항목의 상세 보고서](docs/stage6_event_evaluation_protocol.md)에 사용자·seed·delay·coverage·burden 및 dual protocol 권고를 기록했습니다.
+공식 Stage 5 metric은 보존했으며 재학습·추론·threshold tuning·alert smoothing을 수행하지 않았습니다.
+Stage 6.6은 `cd5bbf0`로 checkpoint 게시했으며 로컬/원격 HEAD가 일치합니다.
+
+```powershell
+python -m src.audit_event_evaluation_protocol
+```
+
+# Stage 6.5. Synthetic Route Label Identifiability & Boundary Audit
+
+기존 route label 378행을 source original과 exact join해 intervention / label / observable effect를 구분했습니다.
+Tier 1/2/3/4는 **340/19/0/19행**이며 Tier 4는 모든 segment의 sine-zero 시작점입니다.
+Tier 4를 제외한 audit-only recall 변화는 **+0.68~1.02%p**로 낮은 point recall 대부분이 남습니다.
+기존 prediction의 event 탐지율은 Rule **89.47%**, IF mean **92.63%**, AE mean **91.58%**입니다.
+이는 positive synthetic event 조건부 결과이며 negative-event false alarms를 평가한 수치는 아닙니다.
+
+전체 **347개 테스트 PASS**(신규 40), 실제 audit **22.45초**, 보호 파일 **459개 변경 0**입니다.
+[45개 항목의 상세 보고서](docs/stage6_synthetic_route_label_audit.md)에 generator/38·19 boundary/
+tier/recall/event/delay/정책 simulation/Case P~V 및 Stage 6.6 후보를 기록했습니다.
+Label·dataset·기존 공식 metric·모델·threshold는 보존했고 기존 prediction만 재사용했습니다.
+Stage 6.5는 `07c0e61`로 checkpoint 게시했으며 로컬/원격 HEAD가 일치합니다.
+
+```powershell
+python -m src.audit_synthetic_route_labels
+```
+
+# Stage 6.4. Causal Trajectory / Window Similarity Identifiability Audit
+
+W=10/25/50, gap=0/10/25/50, prior/prefix/combined의 36개 사전 정의 조합에서
+정상 46,299 / route deviation 378 endpoint를 모두 분석했습니다.
+겹치지 않는 과거 window의 absolute-space discrete Frechet distance를 비교하며
+reference stride=10의 제한된 grid 내 최소값은 정확하게 계산합니다.
+W10/gap0 combined ROC-AUC/AP는 **0.686174/0.012270**, hard subset AUC는 **0.683646**입니다.
+Train-median 이하 step-distance subset에서는 제한된 추가 신호가 있지만,
+전체 route 분리력 개선과 장기 route memory의 성공은 입증하지 못했습니다.
+
+전체 **307개 테스트 PASS**(신규 35), 실제 audit **349.04초**, 보호 파일 **370개 변경 0**,
+causality/overlap 위반 **0**입니다. [38개 항목의 상세 보고서](docs/stage6_window_similarity_audit.md)에
+전체 config·상관·hard/low-distance·사용자·boundary·다음 후보를 기록했습니다.
+Stage 6.4는 `246d842`로 게시했으며 로컬/원격 HEAD가 일치합니다.
+
+```powershell
+python -m src.audit_trajectory_window_similarity
+```
+
+# Stage 6.3. Inference-observable Context Reference & Abstention Audit
+
+같은 사용자의 prior trajectories와 현재 관측 prefix를 timestamp<현재 시각 조건으로 replay했습니다.
+Label/onset/source 원본은 reference나 support에 사용하지 않았고, 관측된 synthetic prefix도 그대로 memory에 포함했습니다.
+Combined normal coverage@50m는 **99.90%**, ROC-AUC/AP는 **0.76878/0.07744**입니다.
+다만 정상 prefix distance의 **87.11%**가 기존 step-distance와 같아 habitual route 식별을 증명하지 않습니다.
+사용자별 combined ROC-AUC는 **0.578~0.854**이며, progression late score 감소는 확인되지 않았습니다.
+
+```powershell
+python -m src.audit_context_reference
+```
+
+전체 **272개 테스트 PASS**(신규 32), audit **45.23초**, 보호 파일 **273개 checksum 유지**,
+causality 위반 **0**입니다. 기존 출력은 덮어쓰지 않습니다.
+[Stage 6.3 보고서](docs/stage6_context_reference_audit.md)에 정보 조건·availability·support·boundary·7개 그래프를 기록했습니다.
+Stage 6.3은 `8a7172b`로 게시했으며 로컬/원격 HEAD가 일치합니다.
+
+# Stage 6.2. Train-only Route Reference Coverage & Abstention Audit
+
+Train 정상 86,067 point만으로 BallTree spatial reference를 구성했습니다.
+Test 정상 coverage@100m는 **36.53%**, 사용자별로 **26.11~76.68%**입니다.
+전체 거리 score ROC-AUC/AP는 **0.39995/0.00612**, source-matched delta median은 **+39.20m**입니다.
+판정은 **B + D**이며, 원본 source가 covered라는 조건의 분리 신호는 audit용 oracle 결과입니다.
+Global 거리 feature를 모델에 바로 추가하지 않고, 실제 관측 가능한 context·coverage gate의 검증을 제안합니다.
+
+```powershell
+python -m src.audit_route_reference_coverage
+```
+
+전체 **240개 테스트 PASS**(신규 32), audit **10.49초**, Stage 5·6.1 보호 파일 **253개 checksum 유지**,
+leakage **0**입니다. 기존 출력이 있으면 덮어쓰기를 거부합니다.
+[Stage 6.2 보고서](docs/stage6_route_reference_coverage.md)에 coverage·paired delta·boundary·6개 그래프·한계를 기록했습니다.
+Stage 6.2는 `e657c8c`로 checkpoint 게시했고 local/remote HEAD가 일치합니다. 모델·feature·threshold는 변경하지 않았습니다.
+
+# Stage 6.1. Route Representation & Synthetic Label Audit
+
+고정 데이터와 기존 점수만 감사했으며 모델 학습·추론·threshold/scaler 재계산은 하지 않았습니다.
+Test route 378개 중 **307개(81.2169%)**가 8 feature의 Train marginal p01~p99 안에 있습니다.
+변위 median은 **118.010872m**, 원본과 8 feature가 동일한 labelled point는 **19개**입니다.
+Train trajectory의 200m longitude 회전 반례에서 8 feature가 동일하게 유지돼 절대 위치 정보의 한계를 확인했습니다.
+실제 주입은 acceleration/bearing도 바꾸므로 모든 route가 feature에서 동일하다고 해석하지 않습니다.
+판정은 **D(복수 문제 관찰)**이며 원인별 기여율은 검증되지 않았습니다.
+Stage 6.2는 Train-only route reference의 coverage/abstention 검증을 제안하며 아직 구현하지 않았습니다.
+
+```powershell
+python -m src.audit_route_representation
+```
+
+기존 출력이 있으면 덮어쓰기를 거부합니다. 전체 **208개 테스트 PASS**(신규 20개), audit **16.93초**,
+보호 파일 **235개 checksum 유지**, cross-split leakage **0**입니다.
+[Stage 6.1 보고서](docs/stage6_route_representation_audit.md)에 규칙·통계·사용자 결과·6개 그래프·누수 조건을 기록했습니다.
+Stage 6.1은 `feature/stage-6-route-context`에서 검증 후 checkpoint로 게시합니다. Stage 6 PR/main merge 및 Stage 6.2 구현은 진행하지 않습니다.
 
 # Stage 5.4. Baseline Comparison
 
@@ -28,7 +158,7 @@ AE는 abnormal_speed Recall, IF는 long_stop/direction_change Recall에서 상�
 route_deviation은 세 방식 모두 낮았습니다. 모델 우승이나 architecture의 인과적 한계로 결론내리지 않습니다.
 전체 **188개 테스트 통과**, 실험 **33.03초**, 데이터와 기존 AE 산출물 checksum을 보존했습니다.
 [Stage 5.4 보고서](docs/stage5_baseline_comparison.md)에 사전 점수 정의·공정성·전체/사용자/유형 지표와
-6개 그래프·후속 문제 후보를 기록했습니다. Stage 5.3은 `ff5ca3e`로 게시했고 Stage 5.4는 재검증 후 단계별 커밋으로 게시합니다.
+6개 그래프·후속 문제 후보를 기록했습니다. Stage 5.3은 `ff5ca3e`로 게시했고 Stage 5.4는 `19c603a`로 게시했으며 local/remote SHA가 일치합니다.
 
 # Stage 5.3. Multi-seed Stability
 
@@ -657,7 +787,7 @@ docs/images/stage2/20081024020959/feature_summary.csv
 python -m unittest discover -s tests -v
 ```
 
-현재 전체 테스트 188개가 통과하며 다음 항목을 검증합니다.
+현재 전체 테스트 272개가 통과하며 다음 항목을 검증합니다.
 
 * Haversine 거리 계산
 * 동서남북 방향의 방위각 계산
@@ -715,7 +845,7 @@ docs/images/stage2/
 * Validation 기반 threshold 결정
 * Test 성능 평가
 * 모델, Scaler, 지표, 그래프 저장
-* 총 188개 테스트 통과
+* 총 347개 테스트 통과
 * GeoLife 다중 사용자 데이터 준비와 사용자 단위 split
 * 원본 point index lineage·fingerprint·CSV checksum 검증
 * 동일 split exact duplicate 제외와 cross-split leakage 실패
