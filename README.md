@@ -11,6 +11,23 @@ Stage 5 전체는 [PR #4](https://github.com/YYMini/PathGuard_Ai/pull/4)로 main
 최종 commit은 `f2e7eeed3f9cb4ffef9b635ca4205dda6954fab0`입니다.
 Stage 6 작업은 최신 main 기반 `feature/stage-6-route-context`에서 분리해 진행합니다.
 
+# Stage 6.3. Inference-observable Context Reference & Abstention Audit
+
+같은 사용자의 prior trajectories와 현재 관측 prefix를 timestamp<현재 시각 조건으로 replay했습니다.
+Label/onset/source 원본은 reference나 support에 사용하지 않았고, 관측된 synthetic prefix도 그대로 memory에 포함했습니다.
+Combined normal coverage@50m는 **99.90%**, ROC-AUC/AP는 **0.76878/0.07744**입니다.
+다만 정상 prefix distance의 **87.11%**가 기존 step-distance와 같아 habitual route 식별을 증명하지 않습니다.
+사용자별 combined ROC-AUC는 **0.578~0.854**이며, progression late score 감소는 확인되지 않았습니다.
+
+```powershell
+python -m src.audit_context_reference
+```
+
+전체 **272개 테스트 PASS**(신규 32), audit **45.23초**, 보호 파일 **273개 checksum 유지**,
+causality 위반 **0**입니다. 기존 출력은 덮어쓰지 않습니다.
+[Stage 6.3 보고서](docs/stage6_context_reference_audit.md)에 정보 조건·availability·support·boundary·7개 그래프를 기록했습니다.
+Stage 6.3은 미커밋/미푸시이며 Stage 6.4·새 모델·production feature는 구현하지 않았습니다.
+
 # Stage 6.2. Train-only Route Reference Coverage & Abstention Audit
 
 Train 정상 86,067 point만으로 BallTree spatial reference를 구성했습니다.
@@ -26,7 +43,7 @@ python -m src.audit_route_reference_coverage
 전체 **240개 테스트 PASS**(신규 32), audit **10.49초**, Stage 5·6.1 보호 파일 **253개 checksum 유지**,
 leakage **0**입니다. 기존 출력이 있으면 덮어쓰기를 거부합니다.
 [Stage 6.2 보고서](docs/stage6_route_reference_coverage.md)에 coverage·paired delta·boundary·6개 그래프·한계를 기록했습니다.
-Stage 6.2는 미커밋/미푸시이며 모델·feature·threshold 변경 및 Stage 6.3 구현은 진행하지 않았습니다.
+Stage 6.2는 `e657c8c`로 checkpoint 게시했고 local/remote HEAD가 일치합니다. 모델·feature·threshold는 변경하지 않았습니다.
 
 # Stage 6.1. Route Representation & Synthetic Label Audit
 
@@ -693,7 +710,7 @@ docs/images/stage2/20081024020959/feature_summary.csv
 python -m unittest discover -s tests -v
 ```
 
-현재 전체 테스트 240개가 통과하며 다음 항목을 검증합니다.
+현재 전체 테스트 272개가 통과하며 다음 항목을 검증합니다.
 
 * Haversine 거리 계산
 * 동서남북 방향의 방위각 계산
@@ -751,7 +768,7 @@ docs/images/stage2/
 * Validation 기반 threshold 결정
 * Test 성능 평가
 * 모델, Scaler, 지표, 그래프 저장
-* 총 240개 테스트 통과
+* 총 272개 테스트 통과
 * GeoLife 다중 사용자 데이터 준비와 사용자 단위 split
 * 원본 point index lineage·fingerprint·CSV checksum 검증
 * 동일 split exact duplicate 제외와 cross-split leakage 실패
