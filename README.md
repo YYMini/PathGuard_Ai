@@ -11,6 +11,24 @@ Stage 5 전체는 [PR #4](https://github.com/YYMini/PathGuard_Ai/pull/4)로 main
 최종 commit은 `f2e7eeed3f9cb4ffef9b635ca4205dda6954fab0`입니다.
 Stage 6 작업은 최신 main 기반 `feature/stage-6-route-context`에서 분리해 진행합니다.
 
+# Stage 6.5. Synthetic Route Label Identifiability & Boundary Audit
+
+기존 route label 378행을 source original과 exact join해 intervention / label / observable effect를 구분했습니다.
+Tier 1/2/3/4는 **340/19/0/19행**이며 Tier 4는 모든 segment의 sine-zero 시작점입니다.
+Tier 4를 제외한 audit-only recall 변화는 **+0.68~1.02%p**로 낮은 point recall 대부분이 남습니다.
+기존 prediction의 event 탐지율은 Rule **89.47%**, IF mean **92.63%**, AE mean **91.58%**입니다.
+이는 positive synthetic event 조건부 결과이며 negative-event false alarms를 평가한 수치는 아닙니다.
+
+전체 **347개 테스트 PASS**(신규 40), 실제 audit **22.45초**, 보호 파일 **459개 변경 0**입니다.
+[45개 항목의 상세 보고서](docs/stage6_synthetic_route_label_audit.md)에 generator/38·19 boundary/
+tier/recall/event/delay/정책 simulation/Case P~V 및 Stage 6.6 후보를 기록했습니다.
+Label·dataset·기존 공식 metric·모델·threshold는 보존했고 기존 prediction만 재사용했습니다.
+Stage 6.5는 checkpoint commit/push 대상으로 확정했습니다. Stage 6.6/7은 아직 구현하지 않았습니다.
+
+```powershell
+python -m src.audit_synthetic_route_labels
+```
+
 # Stage 6.4. Causal Trajectory / Window Similarity Identifiability Audit
 
 W=10/25/50, gap=0/10/25/50, prior/prefix/combined의 36개 사전 정의 조합에서
@@ -24,7 +42,7 @@ Train-median 이하 step-distance subset에서는 제한된 추가 신호가 있
 전체 **307개 테스트 PASS**(신규 35), 실제 audit **349.04초**, 보호 파일 **370개 변경 0**,
 causality/overlap 위반 **0**입니다. [38개 항목의 상세 보고서](docs/stage6_window_similarity_audit.md)에
 전체 config·상관·hard/low-distance·사용자·boundary·다음 후보를 기록했습니다.
-Stage 6.4는 미커밋/미푸시이며 Stage 6.5/7과 새 모델은 구현하지 않았습니다.
+Stage 6.4는 `246d842`로 게시했으며 로컬/원격 HEAD가 일치합니다.
 
 ```powershell
 python -m src.audit_trajectory_window_similarity
@@ -787,7 +805,7 @@ docs/images/stage2/
 * Validation 기반 threshold 결정
 * Test 성능 평가
 * 모델, Scaler, 지표, 그래프 저장
-* 총 307개 테스트 통과
+* 총 347개 테스트 통과
 * GeoLife 다중 사용자 데이터 준비와 사용자 단위 split
 * 원본 point index lineage·fingerprint·CSV checksum 검증
 * 동일 split exact duplicate 제외와 cross-split leakage 실패
